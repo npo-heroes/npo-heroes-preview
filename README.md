@@ -1,38 +1,54 @@
-# NPO HEROES トップページ確認用プレビュー
+# NPO HEROES 確認用サイト
 
-スポンサーのロゴサイズと掲載位置を確認するための静的プレビューです。
+FigmaのPC・スマートフォン版をもとに、スポンサーを含む関係者がレイアウト・ロゴサイズ・画面遷移を確認するための8ページの静的モックです。
 
-公開URL: https://npo-heroes.github.io/npo-heroes-preview/
+[公開サイト](https://npo-heroes.github.io/npo-heroes-preview/) / [スポンサー欄](https://npo-heroes.github.io/npo-heroes-preview/#supporters) / [設計・意思決定](docs/README.md)
 
-ロゴ欄への直接リンク: https://npo-heroes.github.io/npo-heroes-preview/#supporters
+## 開発
 
-参照デザイン: [heroes トップページ_fix](https://www.figma.com/design/vwm5hCC9Lxm2zuNlDRSwnS?node-id=597-5140)
+Node.js 24とnpmを使用します。
 
-## 確認方法
+```sh
+npm ci
+npm run dev
+```
 
-- PC版とスマートフォン版を画面幅で切り替えて表示します。
-- Figmaの原寸で確認する場合は、ブラウザの倍率を100%にし、表示幅をPCは1440px、スマートフォンは375pxにします。
-- ページ内の「企業・団体の皆様へ」または上記の直接リンクからロゴ欄へ移動できます。
-- 大樹生命のロゴを押すと、公式サイト https://www.taiju-life.co.jp を別タブで開きます。
-- 本文のNoto Sans CJK JP、Noto Sans JPと見出しのSuraはHTMLへ埋め込んでいます。一部の游ゴシック指定箇所は閲覧端末のフォントを使用します。
-- 寄付や記事詳細など、別ページの機能は含みません。
+表示先は `http://127.0.0.1:5173/npo-heroes-preview/` です。本文・テンプレート変更後は開発サーバーを再起動するか、別のターミナルで `node scripts/generate.mjs` を実行してください。CSSとTypeScriptは自動更新されます。
 
-## 構成と更新
+```sh
+npm run format
+npm run check
+npm run preview
+```
 
-- `index.html`: 画像とフォントを内包する単独HTMLです。オフラインでもブラウザで開けます。PC版は1440 × 10958px、スマートフォン版は375 × 9207pxのキャンバスを画面幅に合わせて表示します。
-- `.nojekyll`: Jekyllによる変換を無効にします。
-- 公開元は`gh-pages`ブランチのルートです。このブランチへ変更をpushするとGitHub Pagesが更新されます。
-- HTMLを更新する際は、PC・スマートフォン表示、5社のロゴ寸法、画像の欠落、ブラウザコンソールを確認してください。
-- 今回の更新はChromeで表示幅1440px・375px・390px・768pxを検証し、PC・スマートフォンのロゴ位置と寸法をFigmaの実寸に照合しています。WordPressとは独立した静的ファイルのため、検証にはブラウザでの表示・画像・遷移の確認を使用します。
+`check` は型チェック、ユニットテスト、全ページのビルド、整形確認を実行します。プレビューはビルド済みの `dist/` を `http://127.0.0.1:4173/npo-heroes-preview/` で確認できます。
 
-ロゴの表示枠(原寸):
+## 構成
 
-| スポンサー | PC | スマートフォン |
-| --- | --- | --- |
-| 大樹生命 | 275 × 90px | 135 × 44px |
-| SMBC | 250 × 90px | 105 × 38px |
-| 三菱地所 | 303 × 90px | 148 × 44px |
-| 大和ハウス | 433 × 90px | 212 × 44px |
+- `src/templates/site.mjs`: 各ページ・共通ヘッダー・フッターを生成するテンプレート
+- `src/data/content.json`: Figmaから取得した文章と画像の対応
+- `src/data/routes.mjs`: URLとページ名
+- `src/styles/site.css`: PC/SPのレイアウトと中間幅への対応
+- `src/main.ts`、`src/search.ts`: メニュー、確認用案内、ニュース絞り込み
+- `public/`: 画像、SVG、必要な文字に絞ったフォントとライセンス
+- `scripts/generate.mjs`: 各パスの `index.html` を生成
+- `tests/`: 内部リンク、画像、スポンサーリンク、確認用機能のテスト
+- `docs/`: 設計・意思決定・公開・検証記録。配信対象には含めません。
+
+各 `index.html` は生成物です。直接編集せず、テンプレートやデータを修正して生成してください。`main` へのpushでGitHub Actionsが検証し、`dist/` だけをGitHub Pagesへ公開します。
+
+## 確認対象
+
+PCの基準幅は1440px、スマートフォンは375pxです。画面全体を縮小せず、文章を折り返して表示します。ニュースはFigmaの固定内容で、詳細は提供された1記事のみです。実際の寄付、決済、SNS登録、動画再生、会計報告の取得は行わず、確認用の案内を表示します。お問い合わせはメールアドレスのリンクです。
+
+大樹生命を含む5社のロゴは実際の公式サイトを別タブで開きます。
+
+| スポンサー     | PCの画像枠 | SPの画像枠 |
+| -------------- | ---------- | ---------- |
+| 大樹生命       | 275 × 90px | 135 × 44px |
+| SMBC           | 250 × 90px | 105 × 38px |
+| 三菱地所       | 303 × 90px | 148 × 44px |
+| 大和ハウス     | 433 × 90px | 212 × 44px |
 | ヒガシグループ | 299 × 90px | 146 × 44px |
 
-このリポジトリとプレビューは一般公開されています。検索エンジン向けに`noindex,nofollow`を設定していますが、閲覧制限やパスワード保護はありません。
+このリポジトリとサイトは公開されています。全ページに `noindex,nofollow` を付けていますが、閲覧制限はありません。本番WordPressから独立しており、本番のファイルやDBは変更しません。

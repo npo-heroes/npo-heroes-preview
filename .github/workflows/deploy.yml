@@ -1,0 +1,50 @@
+name: 検証とGitHub Pages公開
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: 検証とビルド
+    runs-on: ubuntu-latest
+    steps:
+      - name: ソースを取得
+        uses: actions/checkout@v6
+      - name: Node.jsを準備
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: npm
+      - name: 依存関係を復元
+        run: npm ci
+      - name: 型・テスト・ビルド・整形を検証
+        run: npm run check
+      - name: Pagesを設定
+        uses: actions/configure-pages@v5
+      - name: ビルド成果物を保存
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+  deploy:
+    name: GitHub Pagesへ公開
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 公開
+        id: deployment
+        uses: actions/deploy-pages@v4
