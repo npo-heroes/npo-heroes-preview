@@ -16,7 +16,7 @@
 
 Chrome DevTools MCPを使用。各ページの直接アクセス、PC/SPの全文スクリーンショット、画像欠落と横スクロールの有無を確認した。Figmaの指定をもとにSPの活動カードを写真400px・縦並びへ調整し、実績欄も1列へ変更した。
 
-公開後の確認結果とワークフローのURLは、公開完了時にこの記録へ追記する。
+公開後の確認結果は以下に記録した。
 
 ## 適用範囲
 
@@ -32,3 +32,13 @@ Chrome DevTools MCPを使用。各ページの直接アクセス、PC/SPの全�
 - 320px・768px・1024px・1440px幅を確認。768pxで見つけたヘッダーのはみ出しを修正し、900px以下はメニュー表示に切り替えた。
 - 最終のSP活動カードは高さ904px、832px、784pxとなり、Figmaの指定と一致。
 - 全ページスクリーンショット取得後、Chrome DevTools MCPの画像読み込み待機が応答しなくなったため、最終のSP表示はBraveのCUAで再確認した。
+
+## 公開結果
+
+- 実装commit: `2da0498ef3fbfdd453cc65851beecb535b74c81e`。
+- [初回の検証・公開ワークフロー](https://github.com/npo-heroes/npo-heroes-preview/actions/runs/37867920477): build/deployともに成功。
+- [公開URL](https://npo-heroes.github.io/npo-heroes-preview/): 全8ページがHTTP 200。各ページの配信HTMLのSHA-256がローカルのビルド成果物と完全一致。
+- 参照する画像・SVG・フォント・CSS・JSの計159アセットすべてHTTP 200。
+- 公開サイトでトップから記事詳細へ遷移し、詳細URLを再読み込みして表示できることを確認。コンソールerror/warnは0件。
+- 通常URLでSPの5社のロゴ寸法と大樹生命の遷移先を再確認。
+- リポジトリの既定ブランチはmain、PagesはGitHub Actionsへ変更。gh-pagesは復旧用に保持。
