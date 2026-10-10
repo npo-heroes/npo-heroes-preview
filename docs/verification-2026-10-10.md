@@ -44,6 +44,12 @@
 
 写真の切り抜きは元のFigmaローカルデータを使用した。トップPCはFigma MCPでも確認し、追加取得が利用上限に達した後は取得済みのPC/SPフレームを参照した。
 
-## 公開確認手順
+## 公開結果
 
-`main`のGitHub Actionsの検証・公開成功後、通常URLと全8パスのHTTP 200、配信HTMLとCSS・JS・画像が今回のビルドと一致することを確認する。スポンサー5社のロゴサイズと遷移先は維持する。
+- 実装コミット: `46e2f3627ea33de29f3aaf2e6e81e8a1307880e3`。
+- [GitHub Actions](https://github.com/npo-heroes/npo-heroes-preview/actions/runs/38012663708)の検証・ビルド・GitHub Pagesへの公開が成功。
+- クエリ文字列を付けない通常URLで全8ページと参照素材158件を取得。計166件がHTTP 200で、ローカルの検証済みビルドとSHA-256が一致。配信不一致0件。
+- 公開サイトのChromeでも固定ヘッダー、TOPメニュー、未確定ボタンの除去、375pxの寄付プランへの移動、コンソールエラー0件を確認。
+- スポンサー5社のPCロゴ枠と公式サイトへのリンクを再確認。大樹生命は275×90px、`https://www.taiju-life.co.jp/`。
+
+[更新した確認サイト](https://npo-heroes.github.io/npo-heroes-preview/)
