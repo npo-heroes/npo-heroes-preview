@@ -107,6 +107,69 @@ test("記事タグから選択したカテゴリを指定して一覧へ移動�
   assert.ok(links.every((url) => url.pathname === href("/news/")));
 });
 
+test("トップのバッジはカードの位置ではなく記事のタグから決まる", () => {
+  const original = content.top.news;
+  try {
+    content.top.news = [
+      { ...original[3], tags: "お知らせ, ラガール, ヒーローズカップ" },
+      { ...original[0], tags: "#お知らせ #ヒーローズカップ" },
+      { ...original[1], tags: "ラグビーフェスティバル，お知らせ" },
+      { ...original[2], tags: "未登録のタグ" },
+    ];
+    const top = renderPage(routes.find((route) => route.key === "top"));
+    assert.deepEqual(
+      [...top.matchAll(/class="news-badge news-badge-([^"]+)">([^<]+)</g)].map(
+        ([, style, label]) => [style, label],
+      ),
+      [
+        ["rugirl", "ラガール"],
+        ["cup", "ヒーローズカップ"],
+        ["festival", "ラグビーフェスティバル"],
+      ],
+    );
+  } finally {
+    content.top.news = original;
+  }
+});
+
+test("トップのカンマ区切りのタグは1つずつカテゴリの絞り込みへ接続する", () => {
+  const top = outputs.find(({ route }) => route.key === "top").html;
+  const links = [...top.matchAll(/class="news-tag" href="([^"]+)"/g)].map(
+    ([, target]) => new URL(target, "https://example.test"),
+  );
+  assert.deepEqual(
+    links.map((url) => url.searchParams.get("category")),
+    [
+      "お知らせ",
+      "ヒーローズカップ",
+      "お知らせ",
+      "ヒーローズカップ",
+      "お知らせ",
+      "ヒーローズカップ",
+      "お知らせ",
+      "ラガール",
+    ],
+  );
+});
+
+test("全8ページの問い合わせ下に5種類のSNSを表示し未確定URLへ誘導しない", () => {
+  for (const { html } of outputs) {
+    const social = html.match(/class="social-links"[^>]*>(.*?)<\/div>/s)?.[1];
+    assert.ok(social);
+    assert.deepEqual(
+      [...social.matchAll(/role="img" aria-label="([^"]+)"/g)].map(
+        ([, label]) => label,
+      ),
+      ["LINE", "Instagram", "Facebook", "YouTube", "X"],
+    );
+    assert.doesNotMatch(social, /<a\b|<button\b|tabindex/);
+    assert.match(
+      html,
+      /footer-contact.*?お問い合わせ<\/a><div class="social-links"/s,
+    );
+  }
+});
+
 test("実績の数字だけを強調し、TOPのパンくずを現在地として示す", () => {
   const top = outputs.find(({ route }) => route.key === "top").html;
   assert.match(top, /class="record-value">のべ<strong>3,729<\/strong>チーム/);

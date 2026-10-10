@@ -1,9 +1,11 @@
 {
   "logo": "images/2a255eeb4d8256aa.webp",
   "social": {
+    "line": "images/line.svg",
     "facebook": "images/af6f06778b34a6b7.webp",
     "instagram": "images/a374b7807a9742c4.webp",
-    "x": "images/887e824ffe810d7f.webp"
+    "x": "images/887e824ffe810d7f.webp",
+    "youtube": "images/youtube.svg"
   },
   "mission": {
     "hero": "images/40fcf895914c20b8.webp",

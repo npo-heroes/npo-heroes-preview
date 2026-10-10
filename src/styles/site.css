@@ -321,8 +321,7 @@ address p + p {
 .footer-contact {
   position: absolute;
   right: 0;
-  top: 50%;
-  transform: translateY(-20%);
+  top: 90px;
   width: 241px;
 }
 .social-links {
@@ -332,7 +331,7 @@ address p + p {
   gap: 16px;
   margin-top: 24px;
 }
-.social-links button {
+.social-links > span {
   padding: 0;
   background: none;
   display: grid;
@@ -344,6 +343,13 @@ address p + p {
   width: 24px;
   height: 24px;
   object-fit: contain;
+}
+.social-links .social-youtube img {
+  height: 17px;
+}
+.social-links .social-x,
+.social-links .social-x img {
+  width: 23px;
 }
 .sub-hero {
   height: 650px;
@@ -569,9 +575,18 @@ address p + p {
   font-size: 12px;
   line-height: 12px;
   background: var(--gold);
-  padding: 6px 8px;
+  padding: 5.5px 8px;
   color: white;
   margin-bottom: 17px;
+}
+.news-badge-cup {
+  background: var(--cup);
+}
+.news-badge-rugirl {
+  background: #ff4da9;
+}
+.news-badge-festival {
+  background: var(--gold);
 }
 .news-card h3 {
   font-size: 18px;
