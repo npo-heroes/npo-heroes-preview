@@ -17,52 +17,28 @@ function setMenu(open: boolean): void {
   if (footer) footer.inert = open;
 }
 menuButton?.addEventListener("click", () => setMenu(Boolean(menu?.hidden)));
-menu
-  ?.querySelectorAll("a")
+document
+  .querySelectorAll(".site-header a, #mobile-menu a")
   .forEach((anchor) => anchor.addEventListener("click", () => setMenu(false)));
 document.addEventListener("keydown", (event) => {
-  if (
-    event.key === "Escape" &&
-    !document.querySelector("dialog[open]") &&
-    menu &&
-    !menu.hidden
-  ) {
+  if (event.key === "Escape" && menu && !menu.hidden) {
     setMenu(false);
     menuButton?.focus();
   }
 });
-matchMedia("(min-width: 901px)").addEventListener("change", (event) => {
+matchMedia("(min-width: 1001px)").addEventListener("change", (event) => {
   if (event.matches) setMenu(false);
 });
 
-const messages: Record<string, string> = {
-  donation:
-    "こちらはデザイン確認用サイトです。寄付・決済の手続きは行われません。",
-  article:
-    "この記事の詳細デザインは確認対象に含まれていません。詳細ページはトップのお知らせ「The 18th HEROES CUP 【本編ダイジェスト】」からご確認いただけます。",
-  social:
-    "こちらはSNSへの導線を確認するためのモックです。登録や外部サービスへの移動は行われません。",
-  document: "会計報告のダウンロードはこの確認用サイトでは行われません。",
-  video:
-    "こちらは動画の掲載位置を確認するためのモックです。動画の再生は行われません。",
-  more: "Figmaで提供されたお知らせをすべて表示しています。このモックで追加の読み込みは行われません。",
-  page: "このページは今回のデザイン確認の対象に含まれていません。",
-};
-const dialog = document.querySelector<HTMLDialogElement>("#preview-dialog");
-const message = document.querySelector<HTMLElement>("#preview-message");
-document
-  .querySelectorAll<HTMLButtonElement>("[data-preview]")
-  .forEach((button) => {
-    button.addEventListener("click", () => {
-      if (!dialog || !message) return;
-      message.textContent =
-        messages[button.dataset.preview ?? "page"] ?? messages.page;
-      dialog.showModal();
-    });
+document.querySelectorAll<HTMLElement>(".photo-mosaic").forEach((mosaic) => {
+  const button = mosaic.querySelector<HTMLButtonElement>(".mosaic-toggle");
+  button?.addEventListener("click", () => {
+    const paused = button.getAttribute("aria-pressed") !== "true";
+    button.setAttribute("aria-pressed", String(paused));
+    button.textContent = paused ? "写真の動きを再開" : "写真の動きを停止";
+    mosaic.classList.toggle("is-paused", paused);
   });
-dialog
-  ?.querySelectorAll(".dialog-close")
-  .forEach((button) => button.addEventListener("click", () => dialog.close()));
+});
 
 const search = document.querySelector<HTMLFormElement>("#news-search");
 if (search) {
@@ -71,9 +47,15 @@ if (search) {
   const status = document.querySelector<HTMLElement>("#search-status");
   const categoryButtons =
     search.querySelectorAll<HTMLButtonElement>("[data-category]");
-  const rows = [
-    ...document.querySelectorAll<HTMLButtonElement>("[data-news-row]"),
-  ];
+  const rows = [...document.querySelectorAll<HTMLElement>("[data-news-row]")];
+  const initialFilter = new URLSearchParams(location.search);
+  categoryButtons.forEach((button) => {
+    button.setAttribute(
+      "aria-pressed",
+      String(button.dataset.category === initialFilter.get("category")),
+    );
+  });
+  if (keyword) keyword.value = initialFilter.get("keyword") ?? "";
   const update = (): void => {
     const category =
       search.querySelector<HTMLButtonElement>('[aria-pressed="true"]')?.dataset
@@ -111,6 +93,7 @@ if (search) {
       update();
     }),
   );
+  update();
   month?.addEventListener("change", update);
   keyword?.addEventListener("input", update);
   search.addEventListener("submit", (event) => {

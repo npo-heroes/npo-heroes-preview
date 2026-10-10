@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import { routes, base, articlePath, href } from "../src/data/routes.mjs";
-import { renderPage } from "../src/templates/site.mjs";
+import { content, renderPage } from "../src/templates/site.mjs";
 import { matchesNews } from "../src/search.ts";
 
 const outputs = routes.map((route) => ({ route, html: renderPage(route) }));
@@ -13,7 +13,14 @@ test("8ページの内部リンクが公開用ベースパスと実在するペ�
   for (const { html } of outputs) {
     for (const [, target] of html.matchAll(/href="([^"]+)"/g)) {
       if (target.startsWith(base) && !target.includes("/images/"))
-        assert.ok(paths.has(target), target);
+        assert.ok(
+          paths.has(
+            decodeURIComponent(
+              new URL(target, "https://example.test").pathname,
+            ),
+          ),
+          target,
+        );
     }
   }
   assert.ok(paths.has(href(articlePath)));
@@ -67,5 +74,71 @@ test("カテゴリ・年月・複数キーワードをAND検索し全角英数�
   );
   assert.ok(
     !matchesNews(item, { category: "", month: "", keyword: "heroes 未登録" }),
+  );
+});
+
+test("全ページから寄付プランへ移動でき、未確定ボタンと確認用ダイアログはない", () => {
+  for (const { html } of outputs) {
+    assert.match(html, /href="\/npo-heroes-preview\/cheers\/#donation-plans"/);
+    assert.doesNotMatch(html, /data-preview=|<dialog/);
+    assert.match(
+      html,
+      /aria-label="メインナビゲーション"><a href="\/npo-heroes-preview\/">TOP<\/a>/,
+    );
+  }
+  assert.match(
+    outputs.find(({ route }) => route.key === "cheers").html,
+    /id="donation-plans"/,
+  );
+  const news = outputs.find(({ route }) => route.key === "news").html;
+  assert.doesNotMatch(news, /<button[^>]*data-news-row/);
+  assert.doesNotMatch(news, /more-news/);
+});
+
+test("記事タグから選択したカテゴリを指定して一覧へ移動できる", () => {
+  const article = outputs.find(({ route }) => route.key === "article").html;
+  const links = [...article.matchAll(/class="news-tag" href="([^"]+)"/g)].map(
+    ([, target]) => new URL(target, "https://example.test"),
+  );
+  assert.deepEqual(
+    links.map((url) => url.searchParams.get("category")),
+    ["お知らせ", "ヒーローズカップ"],
+  );
+  assert.ok(links.every((url) => url.pathname === href("/news/")));
+});
+
+test("実績の数字だけを強調し、TOPのパンくずを現在地として示す", () => {
+  const top = outputs.find(({ route }) => route.key === "top").html;
+  assert.match(top, /class="record-value">のべ<strong>3,729<\/strong>チーム/);
+  assert.match(top, /class="record-value"><strong>1,327<\/strong>人/);
+  assert.match(
+    top,
+    /aria-label="パンくず"><span aria-current="page">TOP<\/span>/,
+  );
+});
+
+test("活動写真列には停止操作があり、繰り返し部分を読み上げ対象から外す", () => {
+  for (const key of ["mission", "cheers", "partners"]) {
+    const html = outputs.find(({ route }) => route.key === key).html;
+    assert.equal([...html.matchAll(/class="mosaic-track"/g)].length, 3);
+    assert.equal(
+      [...html.matchAll(/class="mosaic-group" aria-hidden="true"/g)].length,
+      9,
+    );
+    assert.match(
+      html,
+      /class="mosaic-toggle" type="button" aria-pressed="false"/,
+    );
+  }
+});
+
+test("役員写真の切り抜きで元画像の縦横比を保つ", () => {
+  const person = content.about.people.find(
+    (person) => person.name.trim() === "山田 寛",
+  );
+  // FigmaのSTRETCH変換を直接掛けると縦長になる画像を回帰確認する。
+  const originalRatio = 1258 / 1302;
+  assert.ok(
+    Math.abs(person.crop.width / person.crop.height - originalRatio) < 0.002,
   );
 });

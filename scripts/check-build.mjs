@@ -16,7 +16,9 @@ for (const route of routes) {
       url.startsWith(base),
       `${path}: 公開用ベースパスがありません: ${url}`,
     );
-    const asset = url.slice(base.length).split("#")[0];
+    const asset = decodeURIComponent(
+      new URL(url, "https://example.test").pathname,
+    ).slice(base.length);
     const target = join(
       "dist",
       asset.endsWith("/") || !asset ? `${asset}index.html` : asset,

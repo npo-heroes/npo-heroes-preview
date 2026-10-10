@@ -176,7 +176,7 @@ a:hover {
   margin-top: 100px;
 }
 .site-header {
-  position: absolute;
+  position: fixed;
   z-index: 20;
   top: 32px;
   left: 25px;
@@ -1071,23 +1071,23 @@ address p + p {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
 }
-.standard-collage img {
+.standard-collage > img {
   width: 100%;
   height: 152px;
   object-fit: cover;
 }
-.standard-collage img:last-child {
+.standard-collage > img:last-child {
   grid-column: 3;
   grid-row: 1/3;
   height: 320px;
 }
-.standard-collage img:nth-child(3):not(:last-child) {
+.standard-collage > img:nth-child(3):not(:last-child) {
   grid-column: 1/3;
 }
-.standard-1 .standard-collage img {
+.standard-1 .standard-collage > img {
   height: 152px;
 }
-.standard-1 .standard-collage img:last-child {
+.standard-1 .standard-collage > img:last-child {
   height: 320px;
 }
 .standard-2 .standard-main-photo {
@@ -1096,7 +1096,7 @@ address p + p {
 .standard-2 .standard-collage {
   grid-template-columns: 1fr 1fr;
 }
-.standard-2 .standard-collage img:last-child {
+.standard-2 .standard-collage > img:last-child {
   grid-column: 1/3;
   grid-row: 2;
   height: 180px;
@@ -1651,35 +1651,6 @@ address p + p {
 .page-news .site-footer,
 .page-article .site-footer {
   margin-top: 40px;
-}
-dialog {
-  max-width: 520px;
-  width: calc(100% - 40px);
-  border: 0;
-  border-radius: 8px;
-  padding: 40px;
-  box-shadow: 0 12px 80px #0005;
-}
-dialog::backdrop {
-  background: #0008;
-}
-dialog h2 {
-  font-size: 22px;
-  line-height: 1.5;
-  color: var(--red);
-  margin: 10px 0 20px;
-}
-dialog p {
-  font-size: 16px;
-  line-height: 1.9;
-  margin-bottom: 24px;
-}
-dialog > .dialog-close:first-child {
-  position: absolute;
-  right: 12px;
-  top: 8px;
-  background: transparent;
-  font-size: 30px;
 }
 .menu-open {
   overflow: hidden;
@@ -2417,30 +2388,30 @@ dialog > .dialog-close:first-child {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
-  .standard-collage img {
+  .standard-collage > img {
     height: 134px;
   }
-  .standard-collage img:last-child {
+  .standard-collage > img:last-child {
     grid-column: 1/3;
     grid-row: auto;
     height: 150px;
   }
-  .standard-collage img:nth-child(3):not(:last-child) {
+  .standard-collage > img:nth-child(3):not(:last-child) {
     height: 90px;
   }
-  .standard-1 .standard-collage img {
+  .standard-1 .standard-collage > img {
     height: 134px;
   }
-  .standard-1 .standard-collage img:nth-child(3):not(:last-child) {
+  .standard-1 .standard-collage > img:nth-child(3):not(:last-child) {
     grid-column: auto;
   }
-  .standard-1 .standard-collage img:last-child {
+  .standard-1 .standard-collage > img:last-child {
     height: 200px;
   }
-  .standard-2 .standard-collage img {
+  .standard-2 .standard-collage > img {
     height: 100px;
   }
-  .standard-2 .standard-collage img:last-child {
+  .standard-2 .standard-collage > img:last-child {
     height: 180px;
   }
   .charter-content {
@@ -2829,18 +2800,6 @@ dialog > .dialog-close:first-child {
   .page-news .site-footer,
   .page-article .site-footer {
     margin-top: 40px;
-  }
-  dialog {
-    padding: 28px;
-  }
-  dialog h2 {
-    font-size: 18px;
-  }
-  dialog p {
-    font-size: 14px;
-  }
-  dialog .button {
-    min-width: 100%;
   }
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -3572,7 +3531,7 @@ dialog > .dialog-close:first-child {
 }
 
 /* タブレットでもナビゲーションが画面幅に収まるようにする。 */
-@media (min-width: 761px) and (max-width: 900px) {
+@media (min-width: 761px) and (max-width: 1000px) {
   .site-header {
     top: 10px;
     left: 10px;
@@ -3670,4 +3629,338 @@ dialog > .dialog-close:first-child {
     background: white;
     font-weight: 700;
   }
+}
+
+/* 2026-10-10 レビュー: 共通の導線、Figmaの切り抜き・文字・装飾。 */
+html {
+  scroll-padding-top: 132px;
+}
+.site-header {
+  box-shadow: 0 2px 14px #0001;
+}
+.brand {
+  overflow: hidden;
+}
+.brand img {
+  object-fit: fill;
+  clip-path: inset(3.27% 1.02%);
+  transform: scale(1.0205, 1.0653);
+}
+.desktop-nav {
+  gap: clamp(12px, 1.5vw, 24px);
+}
+.top-message:after {
+  bottom: 0;
+  height: auto;
+  aspect-ratio: 1443 / 472.5;
+  background: url("/images/message-dots-pc.svg") center bottom / 100% 100%
+    no-repeat;
+  mask-image: none;
+}
+.record-numbers h4 {
+  color: #ffab4b;
+}
+.record-numbers .record-value {
+  font-size: 24px;
+  line-height: 42px;
+  font-weight: 400;
+  white-space: nowrap;
+  margin-top: 4px;
+}
+.record-value strong {
+  font-size: 40px;
+  line-height: inherit;
+  margin: 0;
+}
+.japan-map {
+  transform: rotate(-4.951deg);
+}
+.schedule > .section-heading {
+  position: relative;
+  z-index: 1;
+  margin-left: 5.4%;
+}
+.schedule-goal {
+  border-top: 0;
+  border-color: #22720e;
+}
+.schedule-goal:after {
+  background: #22720e;
+  top: 87px;
+}
+.chapter-banner > div:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgb(0 0 0 / 45%);
+}
+.chapter-banner > div:after {
+  z-index: 1;
+  pointer-events: none;
+}
+.chapter-banner h2 {
+  z-index: 2;
+  text-shadow: none;
+}
+.cropped-photo {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+.cropped-photo img {
+  position: absolute;
+  max-width: none;
+  width: var(--crop-pc-width);
+  height: var(--crop-pc-height);
+  left: var(--crop-pc-left);
+  top: var(--crop-pc-top);
+  object-fit: fill;
+  border: 0;
+  border-radius: 0;
+}
+.standard-main-photo > .cropped-photo {
+  height: 100%;
+}
+.people-grid .cropped-photo {
+  width: 100%;
+  aspect-ratio: 136 / 146;
+  border-top: 10px solid var(--person-color);
+  border-radius: 4px;
+}
+.people-grid figcaption {
+  text-align: center;
+}
+.people-grid figcaption span {
+  font-size: 12px;
+}
+.people-grid figcaption strong {
+  font-size: 16px;
+  white-space: nowrap;
+}
+.charter-content > p {
+  font-size: 24px;
+  text-align: center;
+  font-weight: 400;
+}
+.news-card {
+  cursor: default;
+}
+.news-card h3 a:hover,
+.news-tag:hover {
+  text-decoration: underline;
+}
+.news-tag {
+  display: inline-block;
+}
+.news-row {
+  cursor: default;
+}
+.article-nav {
+  display: flex;
+  justify-content: center;
+}
+.photo-mosaic {
+  position: relative;
+}
+.photo-mosaic .mosaic-track {
+  gap: 0;
+  animation: photo-flow 70s linear infinite;
+}
+.photo-mosaic .mosaic-track:nth-child(2) {
+  animation-direction: reverse;
+}
+.mosaic-group {
+  display: flex;
+  gap: 16px;
+  padding-right: 16px;
+  flex: none;
+}
+.mosaic-toggle {
+  position: absolute;
+  z-index: 1;
+  right: 16px;
+  bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fffffff2;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+.photo-mosaic.is-paused .mosaic-track,
+.photo-mosaic:hover .mosaic-track,
+.photo-mosaic:focus-within .mosaic-track {
+  animation-play-state: paused;
+}
+@keyframes photo-flow {
+  to {
+    transform: translateX(-25%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .photo-mosaic .mosaic-track {
+    animation: none;
+  }
+  .mosaic-toggle {
+    display: none;
+  }
+}
+@media (min-width: 761px) {
+  .sub-hero {
+    height: auto;
+    aspect-ratio: 1440 / 650;
+    padding-top: 0;
+  }
+  .activities-intro h2 {
+    left: 140px;
+    top: 0;
+    width: 612px;
+    font-size: 110px;
+    line-height: 110px;
+    transform: rotate(90deg);
+    transform-origin: top left;
+  }
+  .standard-layout {
+    grid-template-columns: minmax(0, 442fr) minmax(0, 830fr);
+    gap: 24px 40px;
+  }
+  .standard-main-photo {
+    min-height: 464px;
+  }
+  .standard-2 .standard-main-photo {
+    min-height: 712px;
+  }
+  .standard-collage {
+    position: relative;
+    display: block;
+    aspect-ratio: 830 / 310;
+    align-self: end;
+  }
+  .standard-collage > .cropped-photo {
+    position: absolute;
+    width: 31.0843%;
+    height: 43.2258%;
+    top: 5.1613%;
+    left: 0;
+  }
+  .standard-collage > :nth-child(2) {
+    left: 34.4578%;
+  }
+  .standard-collage > :nth-child(3) {
+    top: 56.7742%;
+    width: 65.5422%;
+  }
+  .standard-collage > :last-child {
+    left: 68.9157%;
+    top: 5.1613%;
+    width: 31.0843%;
+    height: 94.8387%;
+  }
+  .standard-1 .standard-collage > :nth-child(3),
+  .standard-1 .standard-collage > :nth-child(4) {
+    width: 31.0843%;
+    top: 56.7742%;
+  }
+  .standard-1 .standard-collage > :nth-child(4) {
+    left: 34.2169%;
+  }
+  .standard-2 .standard-collage {
+    aspect-ratio: 830 / 294;
+  }
+  .standard-2 .standard-collage > :first-child {
+    top: 0.3401%;
+    height: 41.4966%;
+  }
+  .standard-2 .standard-collage > :nth-child(2) {
+    left: 0;
+    top: 50.6803%;
+    height: 49.3197%;
+  }
+  .standard-2 .standard-collage > :last-child {
+    left: 34.4578%;
+    top: 0;
+    width: 65.5422%;
+    height: 100%;
+  }
+}
+@media (max-width: 1000px) {
+  html {
+    scroll-padding-top: 82px;
+  }
+}
+@media (max-width: 760px) {
+  .top-message:after {
+    left: -64px;
+    right: -64px;
+    aspect-ratio: 502 / 147.5;
+    background-image: url("/images/message-dots-sp.svg");
+  }
+  .record-numbers .record-value {
+    font-size: 20px;
+  }
+  .record-value strong {
+    font-size: 30px;
+  }
+  .schedule > .section-heading {
+    margin-left: 0;
+  }
+  .schedule-goal:after {
+    top: 40px;
+  }
+  .standard-collage > .cropped-photo {
+    height: 134px;
+  }
+  .standard-collage > :last-child {
+    grid-column: 1 / 3;
+    height: 150px;
+  }
+  .standard-0 .standard-collage > :nth-child(3) {
+    grid-column: 1 / 3;
+    height: 90px;
+  }
+  .standard-1 .standard-collage > :last-child {
+    height: 200px;
+  }
+  .standard-2 .standard-collage > :last-child {
+    height: 180px;
+  }
+  .cropped-photo img {
+    width: var(--crop-sp-width);
+    height: var(--crop-sp-height);
+    left: var(--crop-sp-left);
+    top: var(--crop-sp-top);
+  }
+  .people-grid .cropped-photo {
+    border-top-width: 6px;
+  }
+  .people-grid .cropped-photo img {
+    aspect-ratio: auto;
+  }
+  .people-grid figcaption span {
+    font-size: 10px;
+  }
+  .people-grid figcaption strong {
+    font-size: 12px;
+  }
+  .charter-content > p {
+    font-size: 14px;
+  }
+  .mosaic-group {
+    gap: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media (max-width: 760px) {
+  .standard-2 .standard-collage > .cropped-photo:not(:last-child) {
+    height: 100px;
+  }
+  .people-grid .cropped-photo {
+    aspect-ratio: auto;
+    height: auto;
+    padding-bottom: 100%;
+  }
+}
+.schedule > .section-heading h2 {
+  letter-spacing: normal;
 }
