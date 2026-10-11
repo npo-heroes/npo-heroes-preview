@@ -152,22 +152,54 @@ test("トップのカンマ区切りのタグは1つずつカテゴリの絞り�
   );
 });
 
-test("全8ページの問い合わせ下に5種類のSNSを表示し未確定URLへ誘導しない", () => {
+test("全8ページのSNSを継続対象4アカウントへ接続しLINEは表示のみを維持する", () => {
+  const links = [
+    ["instagram", "https://www.instagram.com/heroescup.news/"],
+    ["facebook", "https://www.facebook.com/share/1HR8VfgMyZ/"],
+    ["youtube", "https://youtube.com/channel/UC7wkKXqi2Qkrw95waMJPbhw"],
+    ["x", "https://x.com/heroescupnews"],
+  ];
   for (const { html } of outputs) {
     const social = html.match(/class="social-links"[^>]*>(.*?)<\/div>/s)?.[1];
     assert.ok(social);
-    assert.deepEqual(
-      [...social.matchAll(/role="img" aria-label="([^"]+)"/g)].map(
-        ([, label]) => label,
-      ),
-      ["LINE", "Instagram", "Facebook", "YouTube", "X"],
+    assert.equal([...social.matchAll(/<a\b/g)].length, 4);
+    for (const [key, url] of links) {
+      assert.ok(
+        social.includes(
+          `class="social-${key}" href="${url}" target="_blank" rel="noopener noreferrer"`,
+        ),
+      );
+    }
+    assert.match(
+      social,
+      /<span class="social-line" role="img" aria-label="LINE">/,
     );
-    assert.doesNotMatch(social, /<a\b|<button\b|tabindex/);
+    assert.doesNotMatch(
+      social,
+      /<button\b|tabindex|href="#"|npo_heroes|NpoHeroes/,
+    );
     assert.match(
       html,
       /footer-contact.*?お問い合わせ<\/a><div class="social-links"/s,
     );
   }
+});
+
+test("共有HTMLの活動タグ・ボタン色・曜日装飾を生成元でも再現する", () => {
+  const top = outputs.find(({ route }) => route.key === "top").html;
+  assert.equal([...top.matchAll(/class="tags1"/g)].length, 3);
+  assert.equal([...top.matchAll(/class="tags2"/g)].length, 3);
+  assert.match(top, /class="button cup" href="https:\/\/heroes-cup.com\/"/);
+  assert.match(
+    top,
+    /7\/25<span class="copy--small">\(土\)<\/span>26<span class="copy--small">\(日\)<\/span>/,
+  );
+  assert.match(top, /schedule-category other">ゴルフコンペ/);
+  const partners = outputs.find(({ route }) => route.key === "partners").html;
+  assert.match(
+    partners,
+    /partners-intro.*?class="button red".*?支援制度に関するお問い合わせ/s,
+  );
 });
 
 test("実績の数字だけを強調し、TOPのパンくずを現在地として示す", () => {

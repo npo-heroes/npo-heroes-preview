@@ -28,7 +28,7 @@
 - タグ: 一覧へ `?category=` または `?keyword=` を渡して初期絞り込み。固定サンプルに該当記事がなければ0件。
 - 寄付: ヘッダーから `/cheers/#donation-plans` へ移動。外部の寄付手続き、資料取得など未確定のボタンは非表示。
 - バッジ: トップの記事タグに含まれる活動名から生成。色と複数タグの扱いは[0003](decisions/0003-news-badges-and-social-icons.md)を参照。
-- SNS: 全8ページに5種類のアイコンを表示。URLの回答前はクリック操作を設けない。
+- SNS: 全8ページに5種類のアイコンを表示。`content.json` の `socialLinks` に保持した継続対象4URLへ接続する。LINEは表示のみ。根拠と共有CSSの統合は[0004](decisions/0004-shared-design-and-social-links.md)を参照。
 - ヘッダー: PC/SPとも固定。モバイルメニューからの移動と、メニュー展開中のヘッダーリンクでメニューを閉じる。
 - 写真列: 連続スクロール。停止・再開ボタン、ホバー・フォーカスで停止。`prefers-reduced-motion: reduce` では静止。
 - メール: `mailto:contact@npo-heroes.com`。

@@ -23,6 +23,7 @@
   --gray: #f1f2f3;
   --ink: #161616;
   --pink: #ff4daa;
+  --gray-text: #a2a2a2;
   --cup: #ea0b30;
   font-family: Noto, "Noto Sans JP", sans-serif;
   color: var(--ink);
@@ -129,6 +130,10 @@ a:hover {
   background: var(--red);
   color: white;
 }
+.cup {
+  background: var(--cup);
+  color: white;
+}
 .white {
   background: white;
   color: var(--ink);
@@ -158,7 +163,7 @@ a:hover {
 }
 .section-heading h1,
 .section-heading h2 {
-  font-size: 48px;
+  font-size: 2.5em;
   line-height: 1;
   letter-spacing: -0.035em;
 }
@@ -246,9 +251,15 @@ a:hover {
   width: 300px;
   background: white;
   box-shadow: 0 6px 24px #0002;
-  padding: 16px;
+  padding: 12px;
   border-radius: 4px;
-  gap: 16px;
+  gap: 8px;
+}
+.competition-menu > div a {
+  padding: 4px;
+}
+.competition-menu > div a:hover {
+  background: var(--gray);
 }
 .competition-menu > div button {
   background: white;
@@ -331,7 +342,8 @@ address p + p {
   gap: 16px;
   margin-top: 24px;
 }
-.social-links > span {
+.social-links > span,
+.social-links > a {
   padding: 0;
   background: none;
   display: grid;
@@ -378,7 +390,7 @@ address p + p {
   position: relative;
   z-index: 1;
   color: white;
-  font-size: 42px;
+  font-size: 36px;
   line-height: 64px;
 }
 .intro {
@@ -387,15 +399,15 @@ address p + p {
   margin: 80px auto;
 }
 .intro h2 {
-  font-size: 42px;
+  font-size: 32px;
   line-height: 64px;
   text-align: center;
   letter-spacing: -0.025em;
 }
 .intro > p {
-  max-width: 758px;
+  max-width: 800px;
   margin: 80px auto 0;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 40px;
 }
 .photo-mosaic {
@@ -631,7 +643,7 @@ address p + p {
   font:
     700 100px/1.1 Sura,
     serif;
-  transform: rotate(-8deg);
+  transform: rotate(0);
 }
 .activity-catch {
   position: absolute;
@@ -653,7 +665,7 @@ address p + p {
 }
 .activity-description {
   position: absolute;
-  right: 3.5%;
+  right: 4%;
   bottom: 127px;
   z-index: 1;
   font-size: 24px;
@@ -670,7 +682,6 @@ address p + p {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 2.1fr);
   min-height: 512px;
-  gap: 16px;
 }
 .activity-photo {
   min-height: 100%;
@@ -696,6 +707,7 @@ address p + p {
   flex-wrap: wrap;
   gap: 16px;
   margin-top: 24px;
+  font-weight: bold;
 }
 .activity-tags span {
   font-size: 24px;
@@ -706,7 +718,7 @@ address p + p {
   border-radius: 4px;
 }
 .activity-copy > p {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 40px;
   margin: 24px 0;
 }
@@ -749,16 +761,16 @@ address p + p {
 }
 .record-content {
   background: var(--gray);
-  width: 71.2%;
-  padding: 40px 80px;
+  width: 70%;
+  padding: 40px 180px;
 }
 .record-content > h3 {
   font-size: 32px;
-  line-height: 42px;
+  line-height: 54px;
   max-width: 676px;
 }
 .record-content > p {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 40px;
   max-width: 676px;
   margin-top: 48px;
@@ -802,9 +814,9 @@ address p + p {
 }
 .japan-map {
   position: absolute;
-  right: 3.5%;
-  top: 180px;
-  width: 39.6%;
+  right: 5%;
+  top: 100px;
+  width: 40%;
   height: auto;
 }
 .schedule {
@@ -828,7 +840,7 @@ address p + p {
   background: var(--green);
 }
 .schedule-rows {
-  max-width: 989px;
+  max-width: 850px;
   margin: auto;
   background: var(--green);
   color: white;
@@ -841,17 +853,21 @@ address p + p {
 .schedule-row:nth-child(even) {
   background: #22720e;
 }
+.schedule-row:last-child {
+  border-top: 4px solid white;
+}
 .schedule-date {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 24px 12px 24px 80px;
+  padding: 24px 12px 24px 3em;
 }
 .schedule-date > strong {
   position: absolute;
-  left: 28px;
-  top: 32px;
-  font-size: 32px;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5em;
   line-height: 1;
   writing-mode: vertical-rl;
 }
@@ -859,19 +875,19 @@ address p + p {
   font-size: 24px;
   line-height: 40px;
   white-space: nowrap;
+  font-weight: bold;
+}
+.schedule-date > p .copy--small {
+  font-size: 16px;
+  white-space: nowrap;
 }
 .schedule-description {
+  border-left: 2px solid #22720e;
   padding: 15px 12px 15px 30px;
   position: relative;
 }
-.schedule-description:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 15px;
-  bottom: 15px;
-  width: 5px;
-  background: white;
+.schedule-row:nth-child(even) .schedule-description {
+  border-left: 2px solid var(--green);
 }
 .schedule-category {
   display: inline-block;
@@ -888,6 +904,9 @@ address p + p {
 }
 .schedule-category.camp {
   color: var(--pink);
+}
+.schedule-category.other {
+  color: var(--gray-text);
 }
 .schedule-description h3 {
   font-size: 24px;
@@ -931,6 +950,9 @@ address p + p {
   margin-top: 80px;
   --chapter-color: var(--red);
 }
+.chapter-1 {
+  margin-top: 0;
+}
 .chapter-banner:before {
   content: "";
   position: absolute;
@@ -939,9 +961,9 @@ address p + p {
   background: var(--chapter-color);
 }
 .chapter-banner > div {
-  height: 456px;
+  height: 350px;
   position: relative;
-  margin: 0 38px;
+  margin: 0 40px;
   overflow: hidden;
   display: grid;
   place-items: center;
@@ -963,8 +985,8 @@ address p + p {
   position: relative;
   color: white;
   text-align: center;
-  font-size: 42px;
-  line-height: 64px;
+  font-size: 32px;
+  line-height: 48px;
   z-index: 1;
   padding: 24px;
   text-shadow: 0 1px 8px #0005;
@@ -982,40 +1004,41 @@ address p + p {
 .issue-cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-  padding: 80px 40px;
+  gap: 16px;
+  padding: 40px 16px;
 }
 .issue-cards > article {
   background: white;
   border-radius: 4px;
-  min-height: 508px;
+  min-height: 350px;
   text-align: center;
-  padding: 24px;
+  padding: 16px;
 }
 .issue-cards > article > span {
   display: inline-block;
   background: var(--red);
   color: white;
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 16px;
+  line-height: 24px;
   padding: 4px 24px;
+  font-weight: bold;
 }
 .issue-cards h3 {
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 20px;
+  line-height: 32px;
   color: var(--red);
-  margin: 40px 0;
+  margin: 16px 0;
 }
 .issue-cards p {
-  font-size: 24px;
-  line-height: 40px;
+  font-size: 16px;
+  line-height: 32px;
   text-align: left;
 }
 .standard-intro {
   max-width: 920px;
   margin: 80px auto 40px;
-  font-size: 28px;
-  line-height: 42px;
+  font-size: 20px;
+  line-height: 32px;
   font-weight: 700;
 }
 .standard-cards {
@@ -1038,7 +1061,7 @@ address p + p {
 .standard-heading {
   background: var(--standard-color);
   color: white;
-  padding: 40px 24px;
+  padding: 20px 24px;
 }
 .standard-heading > span {
   display: table;
@@ -1046,16 +1069,16 @@ address p + p {
   background: white;
   color: var(--standard-color);
   padding: 8px 16px;
-  font-size: 24px;
+  font-size: 16px;
   line-height: 24px;
   border-radius: 4px;
   font-weight: 700;
 }
 .standard-heading > h3 {
   text-align: center;
-  font-size: 28px;
-  line-height: 42px;
-  margin-top: 40px;
+  font-size: 20px;
+  line-height: 32px;
+  margin-top: 20px;
 }
 .standard-layout {
   padding: 24px;
@@ -1066,13 +1089,12 @@ address p + p {
 .standard-layout > p {
   grid-column: 2;
   grid-row: 1;
-  font-size: 24px;
-  line-height: 40px;
+  font-size: 16px;
+  line-height: 32px;
 }
 .standard-main-photo {
   grid-column: 1;
   grid-row: 1/3;
-  min-height: 464px;
   overflow: hidden;
 }
 .standard-main-photo img {
@@ -1105,11 +1127,14 @@ address p + p {
 .standard-1 .standard-collage > img:last-child {
   height: 320px;
 }
-.standard-2 .standard-main-photo {
-  min-height: 680px;
+.standard-0 .standard-collage {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.standard-1 .standard-collage {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 .standard-2 .standard-collage {
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 .standard-2 .standard-collage > img:last-child {
   grid-column: 1/3;
@@ -1129,29 +1154,29 @@ address p + p {
   margin: auto;
 }
 .charter-content > h3 {
-  font-size: 40px;
+  font-size: 32px;
   line-height: 48px;
   text-align: center;
   margin-top: 40px;
 }
 .charter-content dl {
-  margin: 24px 0 0;
   display: grid;
   gap: 8px;
+  max-width: 800px;
+  margin: 24px auto;
 }
 .charter-content dl > div {
   display: grid;
   grid-template-columns: 215px 1fr;
   background: var(--gray);
-  border-right: 18px solid var(--charter-color);
-  min-height: 124px;
+  border-right: 8px solid var(--charter-color);
 }
 .charter-content dt {
   background: var(--charter-color);
   color: white;
   text-align: center;
-  font-size: 48px;
-  line-height: 48px;
+  font-size: 32px;
+  line-height: 32px;
   font-weight: 700;
   padding: 15px;
 }
@@ -1165,9 +1190,9 @@ address p + p {
   display: flex;
   align-items: center;
   margin: 0;
-  padding: 24px 40px;
-  font-size: 24px;
-  line-height: 40px;
+  padding: 16px 16px;
+  font-size: 16px;
+  line-height: 32px;
 }
 .organization-info {
   max-width: 864px;
@@ -1248,21 +1273,26 @@ address p + p {
 }
 .donation-uses > h2 {
   color: var(--gold);
-  font-size: 48px;
+  font-size: 36px;
   line-height: 48px;
   text-align: center;
 }
 .check-list {
   list-style: none;
-  padding: 0;
+  padding-left: 16px;
   margin: 40px auto;
-  max-width: 801px;
+  width: 90%;
+  max-width: 800px;
+}
+.cheers-line .check-list {
+  width: 100%;
+  max-width: none;
 }
 .check-list li {
   position: relative;
   padding: 15px 0 15px 40px;
   border-top: 1px solid #ddd;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 42px;
   font-weight: 700;
 }
@@ -1282,24 +1312,24 @@ address p + p {
 .donation-plans {
   background: var(--gray);
   margin-top: 55px;
-  padding: 80px 40px 40px;
+  padding: 80px 40px 0;
 }
 .donation-plans > h2 {
   color: var(--green);
-  font-size: 48px;
+  font-size: 36px;
   line-height: 48px;
   text-align: center;
 }
 .plan-intro {
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 40px;
   margin: 40px auto;
 }
 .plans-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  gap: 16px;
 }
 .plan {
   border-top: 10px solid var(--plan-color);
@@ -1315,7 +1345,7 @@ address p + p {
   --plan-color: var(--red);
 }
 .plan header {
-  padding: 24px 16px 32px;
+  padding: 16px;
   text-align: center;
   border-bottom: 1px solid #ddd;
 }
@@ -1346,7 +1376,7 @@ address p + p {
 }
 .plan-copy li {
   position: relative;
-  padding-left: 30px;
+  padding-left: 24px;
   margin-bottom: 8px;
 }
 .plan-copy li:before {
@@ -1354,7 +1384,7 @@ address p + p {
   position: absolute;
   left: 0;
   color: var(--plan-color);
-  font-size: 24px;
+  font-size: 16px;
 }
 .donation-procedure {
   margin: 80px 39px 0;
@@ -1380,12 +1410,12 @@ address p + p {
   padding: 16px;
 }
 .donation-procedure > div {
-  padding: 60px 24px;
+  padding: 36px 24px;
   text-align: center;
 }
 .donation-procedure p {
-  font-size: 20px;
-  line-height: 35px;
+  font-size: 16px;
+  line-height: 32px;
 }
 .payment-brands {
   width: 446px;
@@ -1602,13 +1632,14 @@ address p + p {
 }
 .article-surface > article > header > div {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-top: 24px;
   font-size: 16px;
   line-height: 24px;
 }
 .article-surface > article > header > div p {
-  color: var(--gold);
+  color: var(--gray-text);
+  padding-left: 8px;
 }
 .article-body {
   margin-top: 40px;
@@ -1616,6 +1647,7 @@ address p + p {
 .article-body > p {
   font-size: 16px;
   line-height: 24px;
+  text-align: justify;
 }
 .video-preview {
   display: block;
@@ -1694,6 +1726,64 @@ address p + p {
     margin-right: auto;
   }
 }
+@media (max-width: 1600px) {
+  .record-content {
+    padding: 40px 80px;
+  }
+  .japan-map {
+    right: 3.5%;
+  }
+}
+@media (max-width: 1400px) {
+  .activities-intro {
+    height: 400px;
+  }
+  .activities-intro h2 {
+    font-size: 65px;
+  }
+  .activity-catch {
+    top: 80px;
+  }
+  .activity-description {
+    bottom: 32px;
+  }
+  .record > .section-heading {
+    text-align: center;
+    margin-left: 0;
+  }
+  .record-layout {
+    margin-top: 20px;
+    background: var(--gray);
+    padding-bottom: 2em;
+  }
+  .record-content {
+    width: auto;
+    margin: 0 8px;
+    padding: 20px;
+  }
+  .record-content > h3 {
+    text-align: center;
+    margin: 2em auto;
+  }
+  .record-content > p {
+    margin: 2em auto;
+  }
+  .record-numbers {
+    gap: 10px;
+    margin: 20px auto 10px auto;
+  }
+  .record-numbers > div {
+    padding: 10px 8px;
+    min-height: 178px;
+  }
+  .japan-map {
+    position: static;
+    width: 50%;
+    height: auto;
+    margin: 0 auto;
+    min-width: 400px;
+  }
+}
 @media (max-width: 1200px) and (min-width: 761px) {
   .site-header {
     padding-left: 20px;
@@ -1719,7 +1809,7 @@ address p + p {
     padding: 24px;
   }
   .activity-copy > p {
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1.7;
   }
   .activity-copy h3 {
@@ -1737,7 +1827,11 @@ address p + p {
   }
   .standard-intro,
   .charter-content > p {
-    padding: 0 32px;
+    width: 80%;
+    margin: 40px auto;
+  }
+  .charter-content > p {
+    width: 90%;
   }
   .people-grid {
     grid-template-columns: repeat(5, minmax(0, 136px));
@@ -1751,6 +1845,8 @@ address p + p {
   }
   .plan h3 {
     font-size: 12px;
+    display: block;
+    min-height: 40px;
   }
   .plan header strong {
     font-size: 46px;
@@ -1773,6 +1869,17 @@ address p + p {
   }
   .japan-map {
     top: 220px;
+  }
+}
+@media (max-width: 850px) {
+  .plans-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .plans-grid .plan {
+    min-height: 0;
   }
 }
 @media (max-width: 760px) {
@@ -1893,12 +2000,9 @@ address p + p {
     margin-top: 40px;
   }
   .site-footer {
-    margin: 40px 8px 10px;
+    margin: 40px 8px 0px;
     padding: 20px;
     border-radius: 4px;
-  }
-  .footer-inner {
-    min-height: 284px;
   }
   .breadcrumbs {
     font-size: 12px;
@@ -1918,12 +2022,6 @@ address p + p {
   }
   address p + p {
     margin-top: 8px;
-  }
-  .footer-contact {
-    position: static;
-    transform: none;
-    margin-top: 20px;
-    width: 241px;
   }
   .social-links {
     justify-content: flex-start;
@@ -1951,13 +2049,13 @@ address p + p {
     line-height: 24px;
   }
   .intro {
-    max-width: 440px;
+    max-width: 600px;
     padding: 0 28px;
     margin: 40px auto;
   }
   .intro h2 {
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 20px;
+    line-height: 36px;
     letter-spacing: 0;
   }
   .intro > p {
@@ -2240,7 +2338,9 @@ address p + p {
     right: -2px;
   }
   .schedule-rows {
-    margin: 0 8px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
   }
   .schedule-row {
     grid-template-columns: 88px minmax(0, 1fr);
@@ -2254,11 +2354,13 @@ address p + p {
     padding: 10px 8px;
   }
   .schedule-date > strong {
-    position: static;
+    font-family: Sura;
     writing-mode: horizontal-tb;
-    font-size: 16px;
+    font-size: 12px;
     line-height: 16px;
     margin-bottom: 18px;
+    top: 8px;
+    left: 8px;
   }
   .schedule-date > p {
     font-size: 14px;
@@ -2317,11 +2419,14 @@ address p + p {
     height: 20px;
   }
   .chapter-banner > div {
-    height: 146px;
+    height: 200px;
     margin: 0;
   }
   .chapter-banner > div:after {
     display: none;
+  }
+  .chapter-1 {
+    margin-top: 0;
   }
   .chapter-banner h2 {
     font-size: 16px;
@@ -2330,12 +2435,6 @@ address p + p {
   }
   .mission-issues {
     padding-bottom: 0;
-  }
-  .issue-cards {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    padding: 20px 22.5px 0;
   }
   .issue-cards > article {
     padding: 24px 15px;
@@ -2388,19 +2487,25 @@ address p + p {
     line-height: 24px;
     order: 0;
   }
-  .standard-main-photo,
+  .standard-0 .standard-main-photo {
+    height: 500px;
+    order: 1;
+  }
+  .standard-1 .standard-main-photo {
+    height: 400px;
+    order: 1;
+  }
   .standard-2 .standard-main-photo {
     height: 280px;
     min-height: 280px;
     order: 1;
   }
   .standard-2 .standard-main-photo {
-    height: 300px;
-    min-height: 300px;
+    height: 500px;
   }
   .standard-collage {
     order: 2;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 10px;
   }
   .standard-collage > img {
@@ -2475,10 +2580,15 @@ address p + p {
     height: 127px;
     margin-bottom: 40px;
   }
+  .organization-table {
+    width: 80%;
+    min-width: min(350px, 100%);
+    margin: 0 auto;
+  }
   .organization-table > div {
-    grid-template-columns: 64px 1fr;
-    font-size: 12px;
-    line-height: 20px;
+    grid-template-columns: 80px 1fr;
+    font-size: 14px;
+    line-height: 24px;
     padding: 12px 0;
     gap: 12px;
   }
@@ -2527,10 +2637,12 @@ address p + p {
   .donation-plans > h2 {
     font-size: 24px;
     line-height: 24px;
+    margin-top: 20px;
   }
   .check-list {
     margin: 20px 20px;
     max-width: none;
+    width: 85%;
   }
   .check-list li {
     font-size: 14px;
@@ -2552,12 +2664,7 @@ address p + p {
     line-height: 24px;
     margin: 20px 0;
   }
-  .plans-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
   .plan {
-    min-height: 0;
     border-top-width: 6px;
   }
   .plan header {
@@ -2843,7 +2950,7 @@ address p + p {
 .sub-hero picture img {
   position: absolute;
   max-width: none;
-  object-fit: fill;
+  object-fit: cover;
   width: var(--pc-width);
   height: var(--pc-height);
   left: var(--pc-left);
@@ -2876,9 +2983,9 @@ address p + p {
 .cheers-line {
   position: relative;
   display: grid;
-  grid-template-columns: 263px 250px;
+  grid-template-columns: 250px 300px;
   gap: 24px 40px;
-  max-width: 553px;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -3009,7 +3116,7 @@ address p + p {
     padding: 20px 0;
   }
   .donation-uses .check-list {
-    margin: 40px 25px 20px;
+    margin: 30px auto;
   }
   .donation-uses .check-list li {
     font-size: 14px;
@@ -3073,8 +3180,8 @@ address p + p {
   .cheers-line {
     grid-template-columns: 128px 1fr;
     gap: 15px;
-    margin: 20px 15px 0;
-    max-width: 307px;
+    margin: 30px auto 0;
+    width: 80%;
   }
   .cheers-line .line-phone {
     grid-column: 1;
@@ -3106,7 +3213,6 @@ address p + p {
     font-size: 12px;
     line-height: 15px;
     padding: 5px 0 5px 20px;
-    white-space: nowrap;
   }
   .cheers-line p {
     font-size: 12px;
@@ -3196,7 +3302,7 @@ address p + p {
 @media (min-width: 761px) {
   .activity-catch {
     left: auto;
-    right: 3.5%;
+    right: 5%;
     transform: none;
     gap: 8px;
   }
@@ -3255,7 +3361,7 @@ address p + p {
     margin-top: 40px;
   }
   .top-news-panel {
-    padding: 20px 12.5px 16px;
+    padding: 20px;
   }
   .news-card > img {
     aspect-ratio: 170/107;
@@ -3339,22 +3445,25 @@ address p + p {
     gap: 24px;
     background: var(--gray);
     position: relative;
-    box-shadow: inset -10px 0 var(--cup);
+    border-top: 10px solid var(--cup);
+    border-radius: 5px;
   }
   .activity-1 {
-    box-shadow: inset -10px 0 var(--gold);
+    border-top: 10px solid var(--gold);
   }
   .activity-2 {
-    box-shadow: inset -10px 0 var(--pink);
+    border-top: 10px solid var(--pink);
   }
   .activity-copy {
     display: contents;
+    position: relative;
   }
   .activity-copy h3,
   .activity-1 h3 {
     grid-row: 1;
     font-size: 24px;
     line-height: 24px;
+    text-align: center;
   }
   .activity-photo,
   .activity-1 .activity-photo {
@@ -3371,28 +3480,25 @@ address p + p {
     grid-row: 4;
   }
   .activity-tags {
-    position: absolute;
-    top: 375px;
-    right: 30px;
     display: grid;
-    gap: 10px;
     transform: rotate(-8deg);
     margin: 0;
+    position: absolute;
+    font-size: 32px;
+    top: 40%;
+    right: 3.5%;
   }
   .activity-tags span {
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 20px;
+    line-height: 32px;
     padding: 4px 20px;
     justify-self: end;
   }
   .activity-1 .activity-tags {
-    top: 400px;
+    top: 55%;
   }
   .activity-2 .activity-tags {
-    top: 120px;
-  }
-  .activity-2 .activity-tags span:last-child {
-    margin-top: 220px;
+    top: 52%;
   }
   .record-layout {
     background: var(--gray);
@@ -3405,12 +3511,14 @@ address p + p {
     background: none;
   }
   .record-numbers {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 10px;
   }
   .record-numbers > div {
     padding: 16px;
     min-height: 0;
+    width: min(350px, 100%);
+    margin: 0 auto;
   }
   .record-symbol {
     display: none;
@@ -3431,18 +3539,22 @@ address p + p {
   }
   .japan-map {
     width: 317px;
+    min-width: 0;
     max-width: 100%;
     height: 335px;
     object-fit: contain;
     margin: 0 auto;
   }
   .supporter-panel {
-    padding: 20px 20px 0;
+    padding: 20px;
   }
   .schedule-date > p {
     font-size: 12px;
     line-height: 16px;
     white-space: nowrap;
+  }
+  .schedule-date > p .copy--small {
+    font-size: 8px;
   }
   .schedule-description {
     padding-top: 10px;
@@ -3730,7 +3842,7 @@ html {
   height: var(--crop-pc-height);
   left: var(--crop-pc-left);
   top: var(--crop-pc-top);
-  object-fit: fill;
+  object-fit: cover;
   border: 0;
   border-radius: 0;
 }
@@ -3754,7 +3866,7 @@ html {
   white-space: nowrap;
 }
 .charter-content > p {
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
   font-weight: 400;
 }
@@ -3822,34 +3934,26 @@ html {
 }
 @media (min-width: 761px) {
   .sub-hero {
-    height: auto;
-    aspect-ratio: 1440 / 650;
+    height: 500px;
     padding-top: 0;
   }
   .activities-intro h2 {
     left: 140px;
     top: 0;
     width: 612px;
-    font-size: 110px;
     line-height: 110px;
     transform: rotate(90deg);
     transform-origin: top left;
   }
   .standard-layout {
     grid-template-columns: minmax(0, 442fr) minmax(0, 830fr);
-    gap: 24px 40px;
-  }
-  .standard-main-photo {
-    min-height: 464px;
-  }
-  .standard-2 .standard-main-photo {
-    min-height: 712px;
+    gap: 24px 24px;
   }
   .standard-collage {
     position: relative;
     display: block;
     aspect-ratio: 830 / 310;
-    align-self: end;
+    align-self: start;
   }
   .standard-collage > .cropped-photo {
     position: absolute;
@@ -3903,6 +4007,26 @@ html {
     scroll-padding-top: 82px;
   }
 }
+@media (max-width: 900px) {
+  .issue-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 20px 20px 40px 20px;
+    width: 70%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .issue-cards > article {
+    min-height: 0;
+  }
+  .footer-contact {
+    position: static;
+    transform: none;
+    margin-top: 20px;
+    width: 241px;
+  }
+}
 @media (max-width: 760px) {
   .top-message:after {
     left: -64px;
@@ -3925,25 +4049,49 @@ html {
   .standard-collage > .cropped-photo {
     height: 134px;
   }
-  .standard-collage > :last-child {
-    grid-column: 1 / 3;
-    height: 150px;
-  }
-  .standard-0 .standard-collage > :nth-child(3) {
-    grid-column: 1 / 3;
-    height: 90px;
-  }
-  .standard-1 .standard-collage > :last-child {
-    height: 200px;
-  }
-  .standard-2 .standard-collage > :last-child {
-    height: 180px;
+  .standard-1 .standard-collage > .cropped-photo {
+    height: 80px;
   }
   .cropped-photo img {
     width: var(--crop-sp-width);
     height: var(--crop-sp-height);
     left: var(--crop-sp-left);
     top: var(--crop-sp-top);
+  }
+  .standard-1 .standard-main-photo .cropped-photo img {
+    width: var(--crop-pc-width);
+    height: var(--crop-pc-height);
+    left: var(--crop-pc-left);
+    top: var(--crop-pc-top);
+  }
+  .standard-1 .standard-collage > .cropped-photo:first-child img {
+    width: auto;
+    left: -50%;
+    top: -50%;
+  }
+  .standard-1 .standard-collage > .cropped-photo:nth-child(2) img {
+    width: auto;
+    right: 0;
+    left: auto;
+    top: 0;
+  }
+  .standard-1 .standard-collage > .cropped-photo:nth-child(3) img {
+    width: auto;
+    right: 0;
+    left: auto;
+    top: 0;
+  }
+  .standard-1 .standard-collage > .cropped-photo:nth-child(4) img {
+    width: auto;
+    right: 0;
+    left: auto;
+    top: 0;
+  }
+  .standard-2 .standard-main-photo .cropped-photo img {
+    top: 0;
+  }
+  .standard-2 .standard-collage > .cropped-photo:first-child img {
+    left: -25%;
   }
   .people-grid .cropped-photo {
     border-top-width: 6px;
@@ -3967,9 +4115,6 @@ html {
 }
 
 @media (max-width: 760px) {
-  .standard-2 .standard-collage > .cropped-photo:not(:last-child) {
-    height: 100px;
-  }
   .people-grid .cropped-photo {
     aspect-ratio: auto;
     height: auto;

@@ -28,3 +28,7 @@ SNSのリンク先が届いたら各アイコンを実際のリンクへ置き�
 - [Figmaのお知らせ](https://www.figma.com/design/vwm5hCC9Lxm2zuNlDRSwnS/NPO-heroes%E6%A7%98?node-id=597-7054)
 - [Figmaの共通フッター](https://www.figma.com/design/vwm5hCC9Lxm2zuNlDRSwnS/NPO-heroes%E6%A7%98?node-id=597-9045)
 - [対応・検証記録](../verification-2026-10-10-followup.md)
+
+## 後続の決定
+
+2026-10-11に指定された継続SNS4件を接続した。回答待ちの方針は[0004](0004-shared-design-and-social-links.md)へ更新した。LINEのみ表示を継続する。

@@ -11,6 +11,14 @@ export const escapeHtml = (value) =>
     .replaceAll('"', "&quot;");
 const e = escapeHtml;
 const br = (value) => e(value).replace(/\r\n|[\n\u2028\u2029]/g, "<br>");
+const scheduleDate = (value) =>
+  br(value).replace(/(\([^)]*\))/g, '<span class="copy--small">$1</span>');
+const scheduleCategory = new Map([
+  ["ヒーローズカップ", "cup"],
+  ["ラガールキャンプ", "camp"],
+  ["ラグビーフェスティバル", "festival"],
+  ["ゴルフコンペ", "other"],
+]);
 const image = (src, alt = "", attrs = "") =>
   `<img src="/${src}" alt="${e(alt)}" ${attrs.includes("loading=") ? "" : 'loading="lazy"'} decoding="async" ${attrs}>`;
 const link = (label, path, color = "gold") =>
@@ -38,10 +46,13 @@ function footer(route) {
     ["youtube", "YouTube"],
     ["x", "X"],
   ]
-    .map(
-      ([key, label]) =>
-        `<span class="social-${key}" role="img" aria-label="${label}">${image(content.social[key], "")}</span>`,
-    )
+    .map(([key, label]) => {
+      const url = content.socialLinks[key];
+      const icon = image(content.social[key], "");
+      if (!url)
+        return `<span class="social-${key}" role="img" aria-label="${label}">${icon}</span>`;
+      return `<a class="social-${key}" href="${e(url)}" target="_blank" rel="noopener noreferrer" aria-label="${label}(新しいタブ)">${icon}</a>`;
+    })
     .join("")}</div></div><small>Copyright © NPO heroes</small></div></footer>`;
 }
 function hero(page, title) {
@@ -151,9 +162,9 @@ function top() {
   return `
 <section class="top-hero"><div class="hero-photo">${image(d.hero, "ボールを持って走るラグビー選手", 'loading="eager" fetchpriority="high"')}</div><div class="top-message"><h1 lang="en">NPO HEROES</h1><div class="rugby-lace" aria-hidden="true"></div><div class="top-message-copy"><h2>${e(d.heading)}</h2><p><span class="pc-copy">${br(d.intro)}</span><span class="sp-copy">${br(d.introSp)}</span></p>${link("私たちについて", "/mission/", "white")}</div></div></section>
 <section class="top-news section-space">${heading("お知らせ", "What’s new?")}<div class="top-news-panel"><div class="news-cards">${d.news.map((n, i) => `<article class="news-card">${image(n.image, "")}<div class="news-card-copy">${newsBadge(n.tags)}<h3>${i === 1 ? `<a href="${href(articlePath)}">${e(n.title)}</a>` : e(n.title)}</h3><p>${newsTags(n.tags)}</p><time>${e(n.date)}</time></div></article>`).join("")}</div>${link("お知らせ一覧", "/news/")}</div></section>
-<section class="activities section-space"><div class="activities-intro">${image(d.whatImage, "子どもたちがラグビーを楽しむ様子")}<h2 lang="en">What we do</h2><p class="activity-catch"><span>ラグビーとの出会い方は</span><span>ひとつではありません</span></p><p class="activity-description">${br(d.whatDescription)}</p></div><div class="activity-cards">${d.activities.map((a, i) => `<article class="activity-card activity-${i}"><div class="activity-photo">${image(a.image, "")}</div><div class="activity-copy"><h3 lang="en"><span class="pc-copy">${e(a.title)}</span><span class="sp-copy">${br(d.activitiesSp[i].title)}</span></h3><div class="activity-tags">${a.tags.map((t) => `<span>${e(t)}</span>`).join("")}</div><p>${br(a.description)}</p>${i < 2 ? `<a class="button ${i ? "gold" : "red"}" href="${i ? "https://heroes-cup.com/frf/" : "https://heroes-cup.com/"}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">›</span>もっと見る</a>` : ""}</div></article>`).join("")}</div></section>
+<section class="activities section-space"><div class="activities-intro">${image(d.whatImage, "子どもたちがラグビーを楽しむ様子")}<h2 lang="en">What we do</h2><p class="activity-catch"><span>ラグビーとの出会い方は</span><span>ひとつではありません</span></p><p class="activity-description">${br(d.whatDescription)}</p></div><div class="activity-cards">${d.activities.map((a, i) => `<article class="activity-card activity-${i}"><div class="activity-photo">${image(a.image, "")}</div><div class="activity-copy"><h3 lang="en"><span class="pc-copy">${e(a.title)}</span><span class="sp-copy">${br(d.activitiesSp[i].title)}</span></h3><div class="activity-tags">${a.tags.map((t, index) => `<span class="tags${index + 1}">${e(t)}</span>`).join("")}</div><p>${br(a.description)}</p>${i < 2 ? `<a class="button ${i ? "gold" : "cup"}" href="${i ? "https://heroes-cup.com/frf/" : "https://heroes-cup.com/"}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">›</span>もっと見る</a>` : ""}</div></article>`).join("")}</div></section>
 <section class="record section-space">${heading("数字でみるヒーローズ", "track record")}<div class="record-layout"><div class="record-content"><h3>${br(d.record.heading)}</h3><p>${br(d.record.body)}</p><div class="record-numbers">${d.record.items.map(([label, value, caption], i) => `<div>${image("images/" + ["rugby", "people", "smile", "flower"][i] + "-icon.svg", "", 'class="record-symbol"')}<h4>${br(label)}</h4><p class="record-value">${e(value).replace(/([\d,]+)/, "<strong>$1</strong>")}</p><p>${br(caption)}</p></div>`).join("")}</div></div>${image("images/japan-map.svg", "47都道府県 全国大会参加中！", 'class="japan-map"')}</div></section>
-<section class="schedule section-space">${heading("2026年度スケジュール", "Event Schedule", "green")}<div class="schedule-goal" aria-hidden="true"></div><div class="schedule-rows">${d.schedule.map((s) => `<div class="schedule-row"><div class="schedule-date">${s.year ? `<strong>${s.year}</strong>` : ""}<p><span class="pc-copy">${br(s.date)}</span><span class="sp-copy">${br(s.dateSp)}</span></p></div><div class="schedule-description"><span class="schedule-category ${s.category === "ヒーローズカップ" ? "cup" : s.category === "ラガールキャンプ" ? "camp" : "festival"}">${e(s.category)}</span><h3>${e(s.title)}</h3><p>${e(s.place)}</p></div></div>`).join("")}</div></section>
+<section class="schedule section-space">${heading("2026年度スケジュール", "Event Schedule", "green")}<div class="schedule-goal" aria-hidden="true"></div><div class="schedule-rows">${d.schedule.map((s) => `<div class="schedule-row"><div class="schedule-date">${s.year ? `<strong>${s.year}</strong>` : ""}<p><span class="pc-copy">${scheduleDate(s.date)}</span><span class="sp-copy">${scheduleDate(s.dateSp)}</span></p></div><div class="schedule-description"><span class="schedule-category ${scheduleCategory.get(s.category) || "other"}">${e(s.category)}</span><h3>${e(s.title)}</h3><p>${e(s.place)}</p></div></div>`).join("")}</div></section>
 <section id="supporters" class="supporters section-space">${heading("サポーターの皆様", "Supporter", "red")}<div class="supporter-panel"><div class="sponsor-list">${d.sponsors.map((s, i) => `<a href="${sponsors[i]}" target="_blank" rel="noopener noreferrer" aria-label="${sponsorNames[i]} 公式サイト(新しいタブ)">${image(s.image, sponsorNames[i], `width="${s.width}" height="${s.height}" style="--logo-width:${s.width}px;--mobile-logo-width:${[135, 105, 148, 212, 146][i]}px;--mobile-logo-height:${i === 1 ? 38 : 44}px"`)}</a>`).join("")}</div>${link("企業・団体の皆様へ", "/partners/", "red")}</div></section>`;
 }
 function mission() {
@@ -187,7 +198,7 @@ function cheers() {
 }
 function partners() {
   const d = content.partners;
-  return `${hero(d, "企業・団体の皆様へ")}<div class="partners-intro">${intro(d)}<a class="button gold" href="${href("/contact-us/")}"><span aria-hidden="true">›</span><span>企業・団体向け<br class="sp-copy">支援制度に関するお問い合わせ</span></a></div>${mosaic(d.mosaic)}`;
+  return `${hero(d, "企業・団体の皆様へ")}<div class="partners-intro">${intro(d)}<a class="button red" href="${href("/contact-us/")}"><span aria-hidden="true">›</span><span>企業・団体向け<br class="sp-copy">支援制度に関するお問い合わせ</span></a></div>${mosaic(d.mosaic)}`;
 }
 const categories = [
   "お知らせ",

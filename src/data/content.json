@@ -1230,7 +1230,7 @@
         "title": "Rugirl Camp",
         "tags": [
           "仲間との出会い",
-          "未來につながる一歩"
+          "未来につながる一歩"
         ],
         "description": "ラガールキャンプは、女子選手が地域や所属チームを越えて集まり、プレーと交流を楽しむためのイベントです。 女子同士で思い切りプレーすること。初めて会った仲間とチームになること。先輩選手から学び、次のステージを思い描くこと。 ラグビーを続けたいという気持ちを、仲間との出会いにつなげます。",
         "image": "images/adf70dfa883a3b36.webp"
@@ -1466,7 +1466,7 @@
         "description": "ラガールキャンプは、女子選手が地域や所属チームを越えて集まり、プレーと交流を楽しむためのイベントです。 女子同士で思い切りプレーすること。初めて会った仲間とチームになること。先輩選手から学び、次のステージを思い描くこと。 ラグビーを続けたいという気持ちを、仲間との出会いにつなげます。",
         "tags": [
           "仲間との出会い",
-          "未來につながる一歩"
+          "未来につながる一歩"
         ]
       }
     ]
@@ -1534,5 +1534,11 @@
     "image": "images/923d666e1c83c916.webp",
     "previous": "The 18th HEROES CUP 【開会式ダイジェスト】",
     "next": "第19回ヒーローズカップ特別協賛スポンサー決定のお知らせ"
+  },
+  "socialLinks": {
+    "instagram": "https://www.instagram.com/heroescup.news/",
+    "facebook": "https://www.facebook.com/share/1HR8VfgMyZ/",
+    "youtube": "https://youtube.com/channel/UC7wkKXqi2Qkrw95waMJPbhw",
+    "x": "https://x.com/heroescupnews"
   }
 }
