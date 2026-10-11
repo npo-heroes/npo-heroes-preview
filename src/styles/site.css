@@ -526,7 +526,8 @@ address p + p {
   height: 161px;
   position: relative;
   overflow: hidden;
-  background: url("/images/rugby-lace.svg") center bottom / 100% auto no-repeat;
+  background: url("/images/rugby-lace.svg?v=48c20305") center bottom / 100% auto
+    no-repeat;
 }
 .top-message-copy {
   margin-top: 0;
@@ -3780,8 +3781,8 @@ html {
   bottom: 0;
   height: auto;
   aspect-ratio: 1443 / 472.5;
-  background: url("/images/message-dots-pc.svg") center bottom / 100% 100%
-    no-repeat;
+  background: url("/images/message-dots-pc.svg?v=dac78418") center bottom / 100%
+    100% no-repeat;
   mask-image: none;
 }
 .record-numbers h4 {
