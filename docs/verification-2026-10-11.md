@@ -1,6 +1,6 @@
 # 2026-10-11: 共有HTML・CSSとSNSリンクの検証
 
-対象: [意思決定0004](decisions/0004-shared-design-and-social-links.md)。公開前検証の記録。
+対象: [意思決定0004](decisions/0004-shared-design-and-social-links.md)。HTML・CSS・SNSの公開後検証の記録。
 
 ## 自動検証
 
@@ -22,4 +22,15 @@ Instagramリンクを実際にクリックし、指定アカウント `@heroescu
 
 装飾SVG2点は原本の取得待ち。共有CSSで未着手の年月選択のデザインと前後の記事ボタンは既存方針を維持。LINEのURLは未提供。
 
-公開結果と最終確認はデプロイ後に追記する。
+装飾SVGを取得した後は追加の差し替えと公開確認を記録する。
+
+## 公開結果
+
+- 実装commit: `ac0a6f50a11b0413965e5bcadbab933065482728`
+- [GitHub Actions](https://github.com/npo-heroes/npo-heroes-preview/actions/runs/38104453281): 検証・ビルド・Pages公開すべて成功。
+- [通常の確認URL](https://npo-heroes.github.io/npo-heroes-preview/): クエリなしで更新後のHTML/CSS/SNSを確認。
+- 全8ページと参照される162アセットのHTTP 200・SHA-256一致を確認。合計170件成功、エラー0件。
+- 公開ページのバッジ色、SNS4リンク、SNSと表示中画像の読み込み、横スクロールなし、コンソール警告・エラーなしを確認。
+- 支援制度の赤い問い合わせボタンから問い合わせページへ移動し、2026年3月の年月選択で0件表示となることもローカルで確認。サンプル一覧は2026年8月の記事のみのため、0件は仕様どおり。
+
+HTML・CSS・SNSの配信は完了。装飾SVG2点は原本ダウンロードの回答待ちであり、今回のcommitには含まれない。
