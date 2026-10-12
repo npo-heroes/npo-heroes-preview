@@ -237,3 +237,29 @@ test("役員写真の切り抜きで元画像の縦横比を保つ", () => {
     Math.abs(person.crop.width / person.crop.height - originalRatio) < 0.002,
   );
 });
+
+test("TOPのPNG装飾を写真・見出し・本文と同じブロック内に配置する", () => {
+  const top = outputs.find(({ route }) => route.key === "top").html;
+  assert.match(
+    top,
+    /class="top-message"><div class="hero-photo">.*?src="\/images\/rugby-lace\.png".*?aria-hidden="true".*?<h1 lang="en">NPO HEROES<\/h1>.*?class="top-message-copy".*?src="\/images\/message-dots-pc\.png"/s,
+  );
+  assert.doesNotMatch(top, /rugby-lace\.svg|message-dots-pc\.svg/);
+});
+
+test("寄付プランは3つの金額と特典を維持し、補足は指定された2カードだけ表示する", () => {
+  const cheers = outputs.find(({ route }) => route.key === "cheers").html;
+  assert.deepEqual(
+    [...cheers.matchAll(/<strong>([\d,]+)<\/strong>円\/年/g)].map(
+      ([, price]) => price,
+    ),
+    ["3,000", "5,000", "10,000"],
+  );
+  assert.equal([...cheers.matchAll(/class="plan-copy-tips"/g)].length, 2);
+  assert.doesNotMatch(
+    cheers,
+    /ヒーローズの活動や大会の様子を定期的にお届けします。|undefined/,
+  );
+  assert.match(cheers, /年次活動報告書のお届け ※メールにてデータをご共有/);
+  assert.match(cheers, /<span class="sub-copy">※コングラント社/);
+});

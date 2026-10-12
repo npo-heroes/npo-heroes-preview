@@ -9,7 +9,9 @@
 
 - [0004: 共有デザイン調整と継続SNSの接続](decisions/0004-shared-design-and-social-links.md)
 
-新しい決定は`decisions/0005-*.md`以降へ追加し、決定日・状態・背景・採用案・比較した案・影響を残す。既存の決定を変更した場合は、新旧の記録を相互に参照する。
+- [0005: TOPのPNG装飾と追加デザイン調整](decisions/0005-png-decoration-and-scroll-animation.md)
+
+新しい決定は`decisions/0006-*.md`以降へ追加し、決定日・状態・背景・採用案・比較した案・影響を残す。既存の決定を変更した場合は、新旧の記録を相互に参照する。
 
 - [更新・公開・復旧](development-and-deployment.md)
 - [2026-10-09の検証記録](verification-2026-10-09.md)
@@ -18,3 +20,5 @@
 - [2026-10-10のバッジ・SNS追加対応](verification-2026-10-10-followup.md)
 
 - [2026-10-11の共有HTML・CSSとSNS対応](verification-2026-10-11.md)
+
+- [2026-10-12のPNG・アニメーション・追加デザイン対応](verification-2026-10-12.md)

@@ -16,6 +16,16 @@
   font-weight: 700;
   font-display: swap;
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 :root {
   --red: #a9001c;
   --gold: #ffab4b;
@@ -239,7 +249,7 @@ a:hover {
   list-style: none;
 }
 .competition-menu summary:after {
-  content: "⌄";
+  content: "▼";
   margin-left: 7px;
   color: var(--red);
 }
@@ -363,6 +373,26 @@ address p + p {
 .social-links .social-x img {
   width: 23px;
 }
+@supports (animation-timeline: view()) and (animation-range: entry 0% cover 20%) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-animation {
+      animation: fadeIn linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 20%;
+    }
+    .top-message-copy .pc-copy {
+      display: block;
+    }
+    @media (max-width: 760px) {
+      .top-message-copy .pc-copy {
+        display: none;
+      }
+      .top-message-copy .sp-copy {
+        display: block;
+      }
+    }
+  }
+}
 .sub-hero {
   height: 650px;
   position: relative;
@@ -477,43 +507,7 @@ address p + p {
   height: 100%;
   object-fit: cover;
 }
-.top-message {
-  position: relative;
-  margin-top: -195px;
-  padding-bottom: 165px;
-  color: white;
-  text-align: center;
-  isolation: isolate;
-}
-.top-message:before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  background: var(--red);
-  left: -12%;
-  right: -12%;
-  top: 115px;
-  bottom: 0;
-  border-radius: 50% 50% 50% 50% / 12% 12% 7% 7%;
-}
-.top-message:after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  bottom: 45px;
-  left: 0;
-  right: 0;
-  height: 330px;
-  background-image: radial-gradient(#fff8 2px, transparent 3px);
-  background-size: 17px 17px;
-  mask-image: linear-gradient(
-    40deg,
-    #000,
-    transparent 25%,
-    transparent 75%,
-    #000
-  );
-}
+
 .top-message h1 {
   font:
     700 clamp(100px, 15.28vw, 280px)/1.045 Sura,
@@ -522,15 +516,10 @@ address p + p {
   white-space: nowrap;
   text-align: center;
 }
-.rugby-lace {
-  height: 161px;
-  position: relative;
-  overflow: hidden;
-  background: url("/images/rugby-lace.svg?v=48c20305") center bottom / 100% auto
-    no-repeat;
-}
+
 .top-message-copy {
   margin-top: 0;
+  background-color: var(--red);
 }
 .top-message-copy h2 {
   font-size: 42px;
@@ -801,7 +790,7 @@ address p + p {
 .record-numbers h4 {
   font-size: 16px;
   line-height: 24px;
-  font-weight: 400;
+  font-weight: bold;
 }
 .record-numbers strong {
   font-size: 30px;
@@ -999,7 +988,7 @@ address p + p {
   --chapter-color: var(--gold);
 }
 .mission-issues {
-  background: linear-gradient(white 20%, var(--gray) 20%);
+  background: var(--gray);
   padding-bottom: 0;
 }
 .issue-cards {
@@ -1132,7 +1121,7 @@ address p + p {
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 .standard-1 .standard-collage {
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 .standard-2 .standard-collage {
   grid-template-columns: 1fr 1fr 1fr;
@@ -1331,6 +1320,8 @@ address p + p {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid #e5e5e6;
 }
 .plan {
   border-top: 10px solid var(--plan-color);
@@ -1366,14 +1357,14 @@ address p + p {
   line-height: 60px;
 }
 .plan-copy {
-  padding: 24px 16px;
+  padding: 16px;
   font-size: 16px;
   line-height: 24px;
 }
 .plan-copy ul {
   list-style: none;
   padding: 0;
-  margin: 0 0 24px;
+  margin: 0;
 }
 .plan-copy li {
   position: relative;
@@ -1387,8 +1378,14 @@ address p + p {
   color: var(--plan-color);
   font-size: 16px;
 }
+.plan-copy-tips {
+  font-size: 14px;
+  line-height: 24px;
+  padding: 16px 16px;
+  border-top: 1px solid #eee;
+}
 .donation-procedure {
-  margin: 80px 39px 0;
+  margin: 40px 40px 0;
   position: relative;
   background: white;
   border-radius: 4px;
@@ -1417,6 +1414,11 @@ address p + p {
 .donation-procedure p {
   font-size: 16px;
   line-height: 32px;
+}
+.donation-procedure .sub-copy {
+  color: var(--gray-text);
+  font-size: 12px;
+  line-height: 20px;
 }
 .payment-brands {
   width: 446px;
@@ -1647,7 +1649,7 @@ address p + p {
 }
 .article-body > p {
   font-size: 16px;
-  line-height: 24px;
+  line-height: 32px;
   text-align: justify;
 }
 .video-preview {
@@ -1848,6 +1850,9 @@ address p + p {
     font-size: 12px;
     display: block;
     min-height: 40px;
+  }
+  .plan header > p {
+    margin-top: 0;
   }
   .plan header strong {
     font-size: 46px;
@@ -2060,8 +2065,8 @@ address p + p {
     letter-spacing: 0;
   }
   .intro > p {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 32px;
     margin-top: 15px;
   }
   .photo-mosaic {
@@ -2110,26 +2115,14 @@ address p + p {
   .hero-photo img {
     object-position: 53% center;
   }
-  .top-message {
-    margin-top: -48px;
-    padding-bottom: 105px;
-  }
-  .top-message:before {
-    top: 30px;
-    left: -35%;
-    right: -35%;
-    border-radius: 50% 50% 50% 50% / 8% 8% 6% 6%;
-  }
+
   .top-message h1 {
     font-size: clamp(44px, 16vw, 95px);
     line-height: 60px;
     letter-spacing: -0.035em;
     margin-left: -6px;
   }
-  .rugby-lace {
-    height: 75px;
-    background-size: 150% auto;
-  }
+
   .top-message-copy {
     padding: 0 29px;
   }
@@ -2148,10 +2141,7 @@ address p + p {
   .top-message .button {
     margin-top: 20px;
   }
-  .top-message:after {
-    height: 220px;
-    background-size: 10px 10px;
-  }
+
   .top-news {
     padding: 0;
   }
@@ -2260,8 +2250,8 @@ address p + p {
     padding: 4px 8px;
   }
   .activity-copy > p {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 32px;
     margin: 15px 0 20px;
   }
   .activity-1 .activity-copy {
@@ -2289,8 +2279,8 @@ address p + p {
     line-height: 24px;
   }
   .record-content > p {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 32px;
     margin-top: 20px;
   }
   .record-numbers {
@@ -2363,6 +2353,9 @@ address p + p {
     top: 8px;
     left: 8px;
   }
+  .schedule-date .sp-copy {
+    line-height: 24px;
+  }
   .schedule-date > p {
     font-size: 14px;
     line-height: 20px;
@@ -2391,9 +2384,6 @@ address p + p {
     font-size: 10px;
     line-height: 14px;
     margin-top: 6px;
-  }
-  .supporters {
-    padding: 0 8px;
   }
   .supporter-panel {
     padding: 20px;
@@ -2430,8 +2420,8 @@ address p + p {
     margin-top: 0;
   }
   .chapter-banner h2 {
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 20px;
+    line-height: 40px;
     padding: 20px;
   }
   .mission-issues {
@@ -2452,20 +2442,20 @@ address p + p {
     margin: 20px 0;
   }
   .issue-cards p {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 32px;
   }
   .standard-intro {
     margin: 20px 22.5px;
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 32px;
   }
   .standard-cards {
-    margin: 0 22.5px;
-    gap: 20px;
+    margin: 0 10px;
+    gap: 16px;
   }
   .standard-heading {
-    padding: 20px 10px;
+    padding: 20px 15px;
   }
   .standard-heading > span {
     font-size: 14px;
@@ -2473,8 +2463,8 @@ address p + p {
     padding: 4px 12px;
   }
   .standard-heading > h3 {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 32px;
     margin-top: 20px;
   }
   .standard-layout {
@@ -2484,16 +2474,16 @@ address p + p {
     gap: 10px;
   }
   .standard-layout > p {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 32px;
     order: 0;
   }
   .standard-0 .standard-main-photo {
-    height: 500px;
+    height: 300px;
     order: 1;
   }
   .standard-1 .standard-main-photo {
-    height: 400px;
+    height: 200px;
     order: 1;
   }
   .standard-2 .standard-main-photo {
@@ -2502,7 +2492,7 @@ address p + p {
     order: 1;
   }
   .standard-2 .standard-main-photo {
-    height: 500px;
+    height: 400px;
   }
   .standard-collage {
     order: 2;
@@ -2536,8 +2526,8 @@ address p + p {
     height: 180px;
   }
   .charter-content {
-    margin: 20px 22.5px 0;
-    padding: 0;
+    margin: 10px auto;
+    max-width: 650px;
   }
   .charter-content > p {
     font-size: 14px;
@@ -2551,7 +2541,6 @@ address p + p {
   }
   .charter-content dl {
     gap: 8px;
-    margin: 10px 5px 0;
   }
   .charter-content dl > div {
     grid-template-columns: 80px 1fr;
@@ -2569,8 +2558,8 @@ address p + p {
     margin-top: 8px;
   }
   .charter-content dd {
-    font-size: 12px;
-    line-height: 16px;
+    font-size: 16px;
+    line-height: 24px;
     padding: 10px;
   }
   .organization-info {
@@ -2588,10 +2577,10 @@ address p + p {
   }
   .organization-table > div {
     grid-template-columns: 80px 1fr;
-    font-size: 14px;
-    line-height: 24px;
-    padding: 12px 0;
-    gap: 12px;
+    font-size: 16px;
+    line-height: 32px;
+    padding: 15px 0;
+    gap: 20px;
   }
   .organization-table dd {
     overflow-wrap: anywhere;
@@ -2608,7 +2597,7 @@ address p + p {
   }
   .people-grid {
     grid-template-columns: repeat(3, minmax(0, 100px));
-    gap: 24px 10px;
+    gap: 35px 15px;
     margin-top: 40px;
   }
   .people-grid img {
@@ -2643,7 +2632,6 @@ address p + p {
   .check-list {
     margin: 20px 20px;
     max-width: none;
-    width: 85%;
   }
   .check-list li {
     font-size: 14px;
@@ -2661,8 +2649,8 @@ address p + p {
     padding: 40px 20px;
   }
   .plan-intro {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 32px;
     margin: 20px 0;
   }
   .plan {
@@ -2891,10 +2879,6 @@ address p + p {
   .article-body {
     margin-top: 20px;
   }
-  .article-body > p {
-    font-size: 14px;
-    line-height: 24px;
-  }
   .video-preview {
     margin-top: 20px;
   }
@@ -2956,6 +2940,12 @@ address p + p {
   height: var(--pc-height);
   left: var(--pc-left);
   top: var(--pc-top);
+}
+.page-cheers .sub-hero picture img {
+  object-position: 50% -50px;
+}
+.page-partners .sub-hero picture img {
+  object-position: 50% 20%;
 }
 .site-footer {
   padding-bottom: 36px;
@@ -3025,7 +3015,7 @@ address p + p {
   padding: 0;
 }
 .news-row-copy > strong {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 32px;
 }
 .news-list {
@@ -3071,6 +3061,9 @@ address p + p {
   margin-top: 80px;
 }
 @media (max-width: 760px) {
+  .page-cheers .sub-hero picture img {
+    object-position: 50% 0;
+  }
   .pc-copy {
     display: none;
   }
@@ -3118,17 +3111,18 @@ address p + p {
   }
   .donation-uses .check-list {
     margin: 30px auto;
+    padding: 0;
   }
   .donation-uses .check-list li {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 32px;
     padding: 10px 0 10px 25px;
   }
   .donation-uses .check-list li:before {
     font-size: 18px;
   }
   .donation-plans {
-    padding: 20px 19px;
+    padding: 20px 10px;
   }
   .plans-grid {
     gap: 20px;
@@ -3149,8 +3143,8 @@ address p + p {
     padding: 15px;
   }
   .plan-copy {
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 32px;
     padding: 15px;
   }
   .plan-copy li {
@@ -3158,14 +3152,18 @@ address p + p {
   }
   .plan-copy ul {
     min-height: 0;
-    margin-bottom: 30px;
+    margin-bottom: 0;
   }
-  .plan-copy > p {
-    padding-top: 15px;
-    border-top: 1px solid #eee;
+  .plan-copy-tips > p {
+    font-size: 16px;
+    line-height: 32px;
+    padding: 15px;
+  }
+  .donation-plans .plans-grid {
+    padding-bottom: 20px;
   }
   .donation-procedure {
-    margin-top: 40px;
+    margin-top: 20px;
   }
   .donation-procedure > h3 {
     font-size: 24px;
@@ -3175,20 +3173,30 @@ address p + p {
     padding: 20px 15px;
   }
   .donation-procedure p {
+    font-size: 16px;
+    line-height: 32px;
+    text-align: justify;
+  }
+  .donation-procedure .sub-copy {
     font-size: 14px;
-    line-height: 24px;
+    line-height: 20px;
   }
   .cheers-line {
-    grid-template-columns: 128px 1fr;
+    grid-template-columns: 0.8fr 1.2fr;
     gap: 15px;
     margin: 30px auto 0;
-    width: 80%;
+    width: 90%;
   }
   .cheers-line .line-phone {
     grid-column: 1;
     grid-row: 1;
-    width: 128px;
+    width: 100%;
     height: 157px;
+  }
+  .cheers-line .line-phone img {
+    width: 128px;
+    height: auto;
+    margin: 0 auto;
   }
   .cheers-line .button {
     grid-column: 1/3;
@@ -3287,8 +3295,7 @@ address p + p {
     object-fit: cover;
   }
   .news-row-copy > strong {
-    font-size: 12px;
-    line-height: 20px;
+    font-size: 14px;
     min-height: 73px;
   }
   .news-row-copy > span,
@@ -3307,9 +3314,7 @@ address p + p {
     transform: none;
     gap: 8px;
   }
-  .top-message {
-    padding-bottom: 215px;
-  }
+
   .activity-cards {
     gap: 24px;
   }
@@ -3351,7 +3356,7 @@ address p + p {
     width: 111px;
   }
   .intro {
-    padding: 0 27.5px;
+    padding: 0 20px;
   }
   .top-message-copy {
     padding: 0 19.5px;
@@ -3486,7 +3491,7 @@ address p + p {
     margin: 0;
     position: absolute;
     font-size: 32px;
-    top: 40%;
+    top: 35%;
     right: 3.5%;
   }
   .activity-tags span {
@@ -3496,15 +3501,13 @@ address p + p {
     justify-self: end;
   }
   .activity-1 .activity-tags {
-    top: 55%;
+    top: 44%;
   }
   .activity-2 .activity-tags {
-    top: 52%;
+    top: 48%;
   }
   .record-layout {
     background: var(--gray);
-    margin-left: 8px;
-    margin-right: 8px;
     padding-bottom: 20px;
   }
   .record-content {
@@ -3550,7 +3553,7 @@ address p + p {
     padding: 20px;
   }
   .schedule-date > p {
-    font-size: 12px;
+    font-size: 16px;
     line-height: 16px;
     white-space: nowrap;
   }
@@ -3562,12 +3565,12 @@ address p + p {
     padding-bottom: 10px;
   }
   .schedule-description h3 {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 16px;
+    line-height: 24px;
     margin-top: 4px;
   }
   .schedule-description p {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 16px;
     margin-top: 4px;
   }
@@ -3617,7 +3620,7 @@ address p + p {
   .news-row {
     grid-template-columns: minmax(0, 150fr) minmax(0, 138fr);
     gap: 15px;
-    padding: 15px 16px;
+    padding: 15px 0;
     min-height: 149px;
   }
   .news-row > img {
@@ -3627,7 +3630,7 @@ address p + p {
     object-fit: cover;
   }
   .news-row-copy > strong {
-    line-height: 18px;
+    line-height: 20px;
     min-height: 72px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -3777,14 +3780,7 @@ html {
 .desktop-nav {
   gap: clamp(12px, 1.5vw, 24px);
 }
-.top-message:after {
-  bottom: 0;
-  height: auto;
-  aspect-ratio: 1443 / 472.5;
-  background: url("/images/message-dots-pc.svg?v=dac78418") center bottom / 100%
-    100% no-repeat;
-  mask-image: none;
-}
+
 .record-numbers h4 {
   color: #ffab4b;
 }
@@ -4013,8 +4009,7 @@ html {
     display: grid;
     grid-template-columns: 1fr;
     gap: 10px;
-    padding: 20px 20px 40px 20px;
-    width: 70%;
+    padding: 16px 16px 40px 16px;
     max-width: 500px;
     margin: 0 auto;
   }
@@ -4029,12 +4024,6 @@ html {
   }
 }
 @media (max-width: 760px) {
-  .top-message:after {
-    left: -64px;
-    right: -64px;
-    aspect-ratio: 502 / 147.5;
-    background-image: url("/images/message-dots-sp.svg");
-  }
   .record-numbers .record-value {
     font-size: 20px;
   }
@@ -4048,10 +4037,10 @@ html {
     top: 40px;
   }
   .standard-collage > .cropped-photo {
-    height: 134px;
+    height: 100px;
   }
   .standard-1 .standard-collage > .cropped-photo {
-    height: 80px;
+    height: 100px;
   }
   .cropped-photo img {
     width: var(--crop-sp-width);
@@ -4059,40 +4048,91 @@ html {
     left: var(--crop-sp-left);
     top: var(--crop-sp-top);
   }
-  .standard-1 .standard-main-photo .cropped-photo img {
+  .standard-0 .standard-main-photo .cropped-photo img {
     width: var(--crop-pc-width);
     height: var(--crop-pc-height);
     left: var(--crop-pc-left);
     top: var(--crop-pc-top);
   }
-  .standard-1 .standard-collage > .cropped-photo:first-child img {
-    width: auto;
+  .standard-0 .standard-collage > .cropped-photo:first-child img {
     left: -50%;
-    top: -50%;
+    top: -30%;
+  }
+  .standard-0 .standard-collage > .cropped-photo:nth-child(2) img {
+    width: 100%;
+    left: auto;
+  }
+  .standard-0 .standard-collage > .cropped-photo:nth-child(3) img {
+    left: -10%;
+  }
+  .standard-0 .standard-collage > .cropped-photo:last-child img {
+    width: 100%;
+    height: var(--crop-pc-height);
+    left: auto;
+    top: var(--crop-pc-top);
+  }
+  .standard-1 .standard-main-photo .cropped-photo img {
+    width: var(--crop-pc-width);
+    height: var(--crop-pc-height);
+    left: var(--crop-pc-left);
+    top: var(--crop-pc-top);
+    object-position: 50% 40%;
+  }
+  .standard-1 .standard-collage > .cropped-photo img {
+    object-position: 50% 50%;
+    width: var(--crop-pc-width);
+    height: var(--crop-pc-height);
+    left: var(--crop-pc-left);
+  }
+  .standard-1 .standard-collage > .cropped-photo {
+    height: 120px;
+  }
+  .standard-1 .standard-collage > .cropped-photo:first-child {
+    grid-column: 1/3;
+  }
+  .standard-1 .standard-collage > .cropped-photo:nth-child(2) {
+    grid-column: 3/5;
+  }
+  .standard-1 .standard-collage > .cropped-photo:nth-child(3) {
+    grid-column: 5/8;
+  }
+  .standard-1 .standard-collage > .cropped-photo:nth-child(4) {
+    grid-column: 1/4;
+  }
+  .standard-1 .standard-collage > .cropped-photo:last-child {
+    grid-column: 4/8;
   }
   .standard-1 .standard-collage > .cropped-photo:nth-child(2) img {
-    width: auto;
-    right: 0;
-    left: auto;
-    top: 0;
+    object-position: 50% 2px;
+    width: 100%;
   }
   .standard-1 .standard-collage > .cropped-photo:nth-child(3) img {
-    width: auto;
-    right: 0;
-    left: auto;
-    top: 0;
+    object-position: 50% -15px;
   }
   .standard-1 .standard-collage > .cropped-photo:nth-child(4) img {
-    width: auto;
-    right: 0;
-    left: auto;
-    top: 0;
+    object-position: 80% -10px;
+  }
+  .standard-1 .standard-collage > .cropped-photo:last-child img {
+    object-position: 50% 10%;
+    width: var(--crop-sp-width);
+    height: var(--crop-sp-height);
+    left: var(--crop-sp-left);
   }
   .standard-2 .standard-main-photo .cropped-photo img {
-    top: 0;
+    object-position: 50% -20px;
   }
   .standard-2 .standard-collage > .cropped-photo:first-child img {
-    left: -25%;
+    object-position: 50% -2px;
+    height: 150px;
+    width: var(--crop-pc-width);
+  }
+  .standard-2 .standard-collage > .cropped-photo:nth-child(2) img {
+    object-position: 30% -10px;
+    width: var(--crop-pc-width);
+  }
+  .standard-2 .standard-collage > .cropped-photo:last-child img {
+    object-position: 50% -5px;
+    height: 130px;
   }
   .people-grid .cropped-photo {
     border-top-width: 6px;
@@ -4101,17 +4141,80 @@ html {
     aspect-ratio: auto;
   }
   .people-grid figcaption span {
-    font-size: 10px;
-  }
-  .people-grid figcaption strong {
     font-size: 12px;
   }
-  .charter-content > p {
+  .people-grid figcaption strong {
     font-size: 14px;
+    line-height: 18px;
+  }
+  .charter-content > p {
+    font-size: 16px;
+    line-height: 32px;
+    text-align: justify;
   }
   .mosaic-group {
     gap: 10px;
     padding-right: 10px;
+  }
+}
+
+@media (max-width: 430px) {
+  .standard-0 .standard-collage {
+    grid-template-columns: 1fr 1fr;
+  }
+  .standard-0 .standard-collage > .cropped-photo:first-child img {
+    left: -50%;
+    top: -30%;
+  }
+  .standard-0 .standard-collage > .cropped-photo:nth-child(3) img {
+    left: -10%;
+  }
+  .standard-1 .standard-collage {
+    grid-template-columns: 1fr 1fr;
+  }
+  .standard-1 .standard-collage > .cropped-photo:nth-child(2) img {
+    object-position: 0 -10px;
+  }
+  .standard-1 .standard-collage > .cropped-photo:nth-child(3) img {
+    object-position: 50% -15px;
+  }
+  .standard-1 .standard-collage > .cropped-photo:nth-child(4) img {
+    object-position: 80% 50%;
+  }
+  .standard-1 .standard-collage > .cropped-photo:first-child {
+    grid-column: 1/2;
+    height: 80px;
+  }
+  .standard-1 .standard-collage > .cropped-photo:nth-child(2) {
+    grid-column: 2/3;
+    height: 80px;
+  }
+  .standard-1 .standard-collage > .cropped-photo:nth-child(3) {
+    grid-column: 1/2;
+    height: 80px;
+  }
+  .standard-1 .standard-collage > .cropped-photo:nth-child(4) {
+    grid-column: 2/3;
+    height: 80px;
+  }
+  .standard-1 .standard-collage > .cropped-photo:last-child {
+    grid-column: 1/3;
+    height: 200px;
+  }
+  .standard-1 .standard-collage > .cropped-photo:last-child img {
+    object-position: 50% 10%;
+    height: 250px;
+  }
+  .standard-2 .standard-collage {
+    grid-template-columns: 1fr 1fr;
+  }
+  .standard-2 .standard-collage > .cropped-photo:last-child {
+    grid-column: 1/3;
+    height: 180px;
+  }
+  .standard-2 .standard-collage > .cropped-photo:last-child img {
+    object-position: 50% -10px;
+    height: 200px;
   }
 }
 
@@ -4124,4 +4227,70 @@ html {
 }
 .schedule > .section-heading h2 {
   letter-spacing: normal;
+}
+
+/* TOPの写真・PNG装飾・文章を同じ相対配置のブロックにまとめる。 */
+.top-message {
+  --hero-height: 860px;
+  --lace-width: 100vw;
+  --lace-height: calc(var(--lace-width) * 1104 / 5805);
+  --lace-overlap: 80px;
+  position: relative;
+  color: white;
+  text-align: center;
+  isolation: isolate;
+}
+.top-message .hero-photo {
+  height: var(--hero-height);
+}
+.rugby-lace {
+  position: absolute;
+  z-index: 1;
+  top: calc(var(--hero-height) - var(--lace-overlap));
+  left: calc((100% - var(--lace-width)) / 2);
+  width: var(--lace-width);
+  max-width: none;
+  height: var(--lace-height);
+}
+.top-message h1 {
+  position: absolute;
+  z-index: 2;
+  top: calc(var(--hero-height) - 195px);
+  left: 0;
+  right: 0;
+}
+.top-message-copy {
+  padding-top: calc(var(--lace-height) - var(--lace-overlap));
+  padding-bottom: 40px;
+  background-color: var(--red);
+}
+.top-message-copy > * {
+  position: relative;
+  z-index: 2;
+}
+.message-dots {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  margin-top: -20vw;
+}
+@media (max-width: 760px) {
+  .top-message {
+    --hero-height: 420px;
+    --lace-width: 150vw;
+    --lace-overlap: 32px;
+  }
+  .top-message h1 {
+    top: calc(var(--hero-height) - 48px);
+  }
+  .top-message-copy {
+    padding-bottom: 40px;
+  }
+  .message-dots {
+    width: calc(100% + 128px);
+    max-width: none;
+    margin-left: -64px;
+    margin-top: -85px;
+  }
 }
