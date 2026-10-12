@@ -1,7 +1,7 @@
 # 0005: TOPのPNG装飾と追加デザイン調整
 
 - 決定日: 2026-10-12
-- 状態: 実装済み、公開前の確認中
+- 状態: 実装・検証・GitHub Pages公開済み
 - 対象: TOP・団体概要・チアーズ・私たちについて、および共通CSS
 - 変更元: [0004](0004-shared-design-and-social-links.md)のTOP装飾方式を変更
 
@@ -25,7 +25,7 @@
 
 SVGの再修正ではなく、デザイナーが指定したPNGと配置構造を採用する。PNGは2点合計200,111 bytesで、縮小による再生成や色変更を行わない。2点の背景色はCSSの`#a9001c`と一致する。
 
-JavaScriptでのスクロール監視も候補となるが、提供されたCSSで演出を実現できるため追加しない。非対応ブラウザへ同じ演出を強制することは今回の要件に含めない。
+JavaScriptでのスクロール監視も候補となるが、提供されたCSSで演出を実現できるため追加しない。非対応ブラウザへ同じ演出を強制することは今回の要件に含めない。CSS機能の仕様と対応範囲は[MDNのanimation-timeline](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/animation-timeline)と[animation-range](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/animation-range)で確認した。
 
 生成済みHTMLを上書きせず、テンプレートとデータを変更する。団体概要・チアーズ・私たちについての生成HTMLは、空白・改行を正規化した比較で共有原本と一致する。TOPは依頼されたPNG構造の変更だけが追加差分となる。
 

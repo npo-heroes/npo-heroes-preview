@@ -34,6 +34,15 @@ CSSの非対応ブラウザと動きを減らす設定の通常表示は、機�
 
 ## 公開検証
 
-公開待ち。実装・デプロイのcommit、Actions、通常URLと配信ファイルの照合結果を完了後に記録する。
+- 実装commit: `2fef52a2558a14c7368fbe243b6f415a9c077580`。
+- [GitHub Actions](https://github.com/npo-heroes/npo-heroes-preview/actions/runs/38192884496): 型・16テスト・ビルド・整形確認、Pages公開がすべて成功。
+- 通常の[公開URL](https://npo-heroes.github.io/npo-heroes-preview/)をPC1440×900・SP375×812で読み込み、PNG2点の実画像寸法、TOP10箇所の演出指定、console error/warnなし、横超過0pxを確認。
+- 公開HTML8ページと参照アセット161件の計169ファイルをHTTP取得し、ローカルdistとSHA-256で照合。全件HTTP200・内容一致、失敗0件。
+- PNG2点は受領原本・public・dist・配信内容で一致。
+- スポンサーの画像枠はPC: 275/250/303/433/299×90px、SP: 135×44・105×38・148×44・212×44・146×44pxを保持。
+- 公開TOPをPC/SPでスクロールし、上部の縫い目、赤い本文、下部ドットと曲面を目視確認。SNS4リンクとLINE表示のみを維持。
+- 元のWordPress用ワークスペースのGit状態は作業前後で同一。変更は公開モックリポジトリだけ。
+
+Actionsには既存のPages関連アクションに対するNode.jsランタイムとubuntu-latest移行の通知があるが、全ジョブは成功している。基盤更新は今回のデザイン調整の範囲に含めない。
 
 [意思決定0005](decisions/0005-png-decoration-and-scroll-animation.md)
